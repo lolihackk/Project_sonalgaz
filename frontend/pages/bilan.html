@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bilan Mensuel</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2 class="logo">
+                SONALGAZ
+            </h2>
+
+            <nav>
+<nav>
+
+    <a href="../index.html">
+        Dashboard
+    </a>
+
+    <a href="new-message.html">
+        New Message
+    </a>
+
+    <a href="messages.html">
+        Messages
+    </a>
+
+    <a href="bilan.html">
+        Bilan Mensuel
+    </a>
+
+</nav>
+
+            </nav>
+
+        </aside>
+
+        <!-- MAIN -->
+
+        <main class="main-content">
+
+            <header class="navbar">
+
+                <h1>
+                    Bilan des Transferts du Mois
+                </h1>
+
+            </header>
+
+            <!-- CARDS -->
+
+            <section class="cards">
+
+                <div class="card">
+                    <h3>Total Transfers</h3>
+                    <p id="totalTransfers">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Planned Transfers</h3>
+                    <p id="plannedTransfers">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Emergency Transfers</h3>
+                    <p id="emergencyTransfers">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Completed Transfers</h3>
+                    <p id="completedTransfers">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Refused Transfers</h3>
+                    <p id="refusedTransfers">0</p>
+                </div>
+
+            </section>
+<!-- VOLTAGE TABLE -->
+
+<div class="table-container">
+
+    <h2 style="margin-bottom:20px;">
+        Transfers By Voltage
+    </h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Voltage</th>
+                <th>Total</th>
+                <th>Planned</th>
+                <th>Emergency</th>
+                <th>Completed</th>
+                <th>Refused</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="voltageTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<br><br>
+
+<!-- OUVRAGE TABLE -->
+
+<div class="table-container">
+
+    <h2 style="margin-bottom:20px;">
+        Transfers By Ouvrage
+    </h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Ouvrage</th>
+                <th>Total</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="ouvrageTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+        </main>
+
+    </div>
+
+    <script src="../js/bilan.js"></script>
+
+</body>
+</html>

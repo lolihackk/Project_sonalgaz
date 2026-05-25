@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>New Message</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2 class="logo">
+                SONALGAZ
+            </h2>
+
+            <nav>
+
+                <a href="../index.html">
+                    Dashboard
+                </a>
+
+                <a href="new-message.html">
+                    New Message
+                </a>
+
+                <a href="messages.html">
+                    Messages
+                </a>
+
+                <a href="bilan.html">
+                    Bilan Mensuel
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- MAIN -->
+
+        <main class="main-content">
+
+            <header class="navbar">
+
+                <h1>
+                    Create New Message
+                </h1>
+
+            </header>
+
+            <!-- FORM -->
+
+            <form
+                id="messageForm"
+                class="form-container">
+
+                <!-- GRID -->
+
+                <div class="form-grid">
+
+                    <!-- LOCAL -->
+
+                    <div class="input-box">
+
+                        <label>
+                            Local Message Number
+                        </label>
+
+                        <input
+                            type="number"
+                            id="local_message_number"
+                            placeholder="Example: 455"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- RPN -->
+
+                    <div
+                        class="input-box"
+                        id="rpnField">
+
+                        <label>
+                            RPN Number
+                        </label>
+
+                        <input
+                            type="number"
+                            id="correspondent_message_number"
+                            placeholder="Example: 102"
+                        >
+
+                    </div>
+
+                    <!-- DISTRICT MSG -->
+
+                    <div
+                        class="input-box"
+                        id="districtField"
+                        style="display:none;">
+
+                        <label>
+                            District Message Number
+                        </label>
+
+                        <input
+                            type="number"
+                            id="district_message_number"
+                            placeholder="Example: 88"
+                        >
+
+                    </div>
+
+                    <!-- DISTRICT -->
+
+                    <div class="input-box">
+
+                        <label>
+                            District
+                        </label>
+
+                        <select id="district_id">
+
+                            <option value="1">Setif</option>
+                            <option value="2">Bejaia</option>
+                            <option value="3">Jijel</option>
+                            <option value="4">M'sila</option>
+                            <option value="5">Batna</option>
+                            <option value="6">
+                                Bordj Bou Arreridj
+                            </option>
+                            <option value="7">Mila</option>
+                            <option value="8">Biskra</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- VOLTAGE -->
+
+                    <div class="input-box">
+
+                        <label>
+                            Voltage Level
+                        </label>
+
+                        <select id="voltage_level_id">
+
+                            <option value="1">
+                                60KV
+                            </option>
+
+                            <option value="2">
+                                90KV
+                            </option>
+
+                            <option value="3">
+                                150KV
+                            </option>
+
+                            <option value="4">
+                                220KV
+                            </option>
+
+                            <option value="5">
+                                400KV
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- CHEF -->
+
+                    <div class="input-box">
+
+                        <label>
+                            Chef de conduite
+                        </label>
+
+                        <input
+                            type="text"
+                            id="chef_conduite"
+                            placeholder="Enter name"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- MESSAGE TYPE -->
+
+                    <div class="input-box">
+
+                        <label>
+                            Message Type
+                        </label>
+
+                        <select id="message_type_id">
+
+                            <option value="1">
+                                Demandant
+                            </option>
+
+                            <option value="2">
+                                Informant
+                            </option>
+
+                            <option value="3">
+                                Refus
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- STATUS -->
+
+                    <div class="input-box">
+
+                        <label>
+                            Status
+                        </label>
+
+                        <select id="status_id">
+
+                            <option value="1">
+                                Pending
+                            </option>
+
+                            <option value="2">
+                                Active
+                            </option>
+
+                            <option value="3">
+                                Finished
+                            </option>
+
+                            <option value="4">
+                                Cancelled
+                            </option>
+
+                            <option value="5">
+                                Refused
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- MOTIF -->
+
+                <div class="input-box">
+
+                    <label>
+                        Motif
+                    </label>
+
+                    <textarea
+                        id="motif"
+                        placeholder="Describe the transfer..."
+                        required
+                    ></textarea>
+
+                    <button
+                        type="button"
+                        id="generateAiBtn"
+                        class="ai-btn">
+
+                        Generate AI Motif
+
+                    </button>
+
+                </div>
+
+                <!-- NOTES -->
+
+                <div class="input-box">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Additional notes..."
+                    ></textarea>
+
+                </div>
+
+                <!-- SAVE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    Save Message
+
+                </button>
+
+            </form>
+
+        </main>
+
+    </div>
+
+    <script src="../js/messages.js"></script>
+
+</body>
+
+</html>
