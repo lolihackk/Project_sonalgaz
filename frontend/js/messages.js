@@ -51,12 +51,15 @@ voltageSelect.addEventListener(
     "change",
     updateVoltageFields
 );
-/* AI MOTIF GENERATOR */
+
+/* =========================================
+   AI MOTIF GENERATOR
+========================================= */
 
 generateAiBtn.addEventListener(
     "click",
     async () => {
-console.log("AI button clicked");
+
     try {
 
         const voltage =
@@ -88,46 +91,150 @@ Current user notes:
 ${motifTextarea.value}
 `;
 
-        generateAiBtn.innerText =
+        /* LOADING BUTTON */
+
+        generateAiBtn.disabled = true;
+
+        generateAiBtn.innerHTML =
             "Generating...";
 
-        const response = await fetch(
+        /* REQUEST */
 
-            "http://localhost:5000/ai/generate-motif",
+        const response =
+            await fetch(
 
-            {
-                method: "POST",
+                "http://localhost:5000/ai/generate-motif",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                {
 
-                body: JSON.stringify({
-                    prompt
-                })
-            }
-        );
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        prompt
+                    })
+                }
+            );
 
         const data =
             await response.json();
 
+        /* ERROR */
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error
+            );
+        }
+
+        /* INSERT TEXT */
+
         motifTextarea.value =
             data.motif;
 
-        generateAiBtn.innerText =
-            "Generate AI Motif";
+        /* SUCCESS TOAST */
+
+        Toastify({
+
+            text:
+                "AI motif generated successfully",
+
+            duration: 3500,
+
+            gravity: "top",
+
+            position: "right",
+
+            stopOnFocus: true,
+
+            close: false,
+
+            style: {
+
+                background:
+                    "linear-gradient(to right, #22c55e, #16a34a)",
+
+                borderRadius: "14px",
+
+                padding: "16px 22px",
+
+                fontWeight: "600",
+
+                boxShadow:
+                    "0 12px 30px rgba(0,0,0,0.25)"
+            }
+
+        }).showToast();
 
     } catch (error) {
 
         console.error(error);
 
-        alert("AI generation failed");
 
-        generateAiBtn.innerText =
+
+/* ERROR TOAST */
+
+Toastify({
+
+    text:
+
+        error.message.includes("429")
+
+        ?
+
+        "AI quota reached. Please wait a few seconds."
+
+        :
+
+        "AI generation failed",
+
+    duration: 5000,
+
+    gravity: "top",
+
+    position: "right",
+
+    stopOnFocus: true,
+
+    close: true,
+
+    style: {
+
+        background:
+            "linear-gradient(to right, #ef4444, #dc2626)",
+
+        borderRadius: "14px",
+
+        padding: "16px 22px",
+
+        fontWeight: "600",
+
+        boxShadow:
+            "0 12px 30px rgba(0,0,0,0.25)"
+    }
+
+}).showToast();
+
+
+    } finally {
+
+        /* RESET BUTTON */
+
+        generateAiBtn.disabled = false;
+
+        generateAiBtn.innerHTML =
             "Generate AI Motif";
     }
 });
+
+
 /* FORM SUBMIT */
 
 form.addEventListener("submit", async (e) => {
@@ -248,18 +355,77 @@ form.addEventListener("submit", async (e) => {
 
         console.log(result);
 
-        alert("Message saved successfully!");
+Toastify({
 
-        form.reset();
+    text:
+        "Message saved successfully",
 
-        /* RESET FORM LOGIC */
+    duration: 3000,
 
-        updateVoltageFields();
+    gravity: "top",
+
+    position: "right",
+
+    stopOnFocus: true,
+
+    close: false,
+
+    style: {
+
+        background:
+            "linear-gradient(to right, #22c55e, #16a34a)",
+
+        borderRadius: "0px",
+
+        padding: "18px 22px",
+
+        fontWeight: "500",
+
+        boxShadow: "none"
+    }
+
+}).showToast();
+
+form.reset();
+
+/* RESET FORM LOGIC */
+
+updateVoltageFields();
 
     } catch (error) {
 
         console.error(error);
 
-        alert("Error saving message");
+        Toastify({
+
+    text:
+        "Failed to save message",
+
+    duration: 3000,
+
+    gravity: "top",
+
+    position: "right",
+
+    stopOnFocus: true,
+
+    close: true,
+
+    style: {
+
+        background:
+            "linear-gradient(to right, #ef4444, #dc2626)",
+
+        borderRadius: "14px",
+
+        padding: "16px",
+
+        fontWeight: "700",
+
+        boxShadow:
+            "0 10px 30px rgba(0,0,0,0.25)"
+    }
+
+}).showToast();
     }
 });

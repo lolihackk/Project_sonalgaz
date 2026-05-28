@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Messages</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <!-- TOASTIFY -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 
 <body>
@@ -23,25 +34,21 @@
 
             <nav>
 
-<nav>
+                <a href="../index.html">
+                    Dashboard
+                </a>
 
-    <a href="../index.html">
-        Dashboard
-    </a>
+                <a href="new-message.html">
+                    New Message
+                </a>
 
-    <a href="new-message.html">
-        New Message
-    </a>
+                <a href="messages.html">
+                    Messages
+                </a>
 
-    <a href="messages.html">
-        Messages
-    </a>
-
-    <a href="bilan.html">
-        Bilan Mensuel
-    </a>
-
-</nav>
+                <a href="bilan.html">
+                    Bilan Mensuel
+                </a>
 
             </nav>
 
@@ -51,9 +58,55 @@
 
         <main class="main-content">
 
+            <!-- HEADER -->
+
             <header class="navbar">
-                <h1>Messages</h1>
+
+                <h1>
+                    Messages
+                </h1>
+
             </header>
+
+            <!-- SEARCH -->
+
+            <div class="search-container">
+
+                <select id="searchType">
+
+                    <option value="local">
+                        Local Number
+                    </option>
+
+                    <option value="rpn">
+                        RPN Number
+                    </option>
+
+                    <option value="district">
+                        District Message Number
+                    </option>
+
+                    <option value="district_name">
+                        District
+                    </option>
+
+                    <option value="voltage">
+                        Voltage
+                    </option>
+
+                    <option value="status">
+                        Status
+                    </option>
+
+                </select>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search..."
+                >
+
+            </div>
 
             <!-- TABLE -->
 
@@ -65,16 +118,29 @@
 
                         <tr>
 
-<th>Local</th>
-<th>RPN</th>
-<th>District Msg</th>
-<th>District</th>
-<th>Voltage</th>
-<th>Status</th>
-<th>Motif</th>
-<th>Chef</th>
-<th>Date</th>
-<th>Time</th>
+                            <th>ID</th>
+
+                            <th>Local</th>
+
+                            <th>RPN</th>
+
+                            <th>District Msg</th>
+
+                            <th>District</th>
+
+                            <th>Voltage</th>
+
+                            <th>Status</th>
+
+                            <th>Motif</th>
+
+                            <th>Chef</th>
+
+                            <th>Date</th>
+
+                            <th>Time</th>
+
+                            <th>Actions</th>
 
                         </tr>
 
@@ -92,7 +158,160 @@
 
     </div>
 
+    <!-- DELETE MODAL -->
+
+    <div
+        id="deleteModal"
+        class="modal-overlay"
+    >
+
+        <div class="modal-box">
+
+            <h2>
+                Confirm Delete
+            </h2>
+
+            <p>
+                Are you sure you want
+                to delete this message?
+            </p>
+
+            <div class="modal-actions">
+
+                <button
+                    id="cancelDelete"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="confirmDelete"
+                    class="confirm-btn"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- EDIT MODAL -->
+
+<div
+    id="editModal"
+    class="modal-overlay"
+>
+
+    <div class="modal-box">
+
+        <h2>
+            Edit Message
+        </h2>
+
+        <!-- MOTIF -->
+
+        <div class="modal-input">
+
+            <label>
+                Motif
+            </label>
+
+            <textarea
+                id="editMotif"
+                placeholder="Edit motif..."
+            ></textarea>
+
+        </div>
+
+        <!-- CHEF -->
+
+        <div class="modal-input">
+
+            <label>
+                Chef de conduite
+            </label>
+
+            <input
+                type="text"
+                id="editChef"
+                placeholder="Chef name"
+            >
+
+        </div>
+
+        <!-- STATUS -->
+
+        <div class="modal-input">
+
+            <label>
+                Status
+            </label>
+
+            <select id="editStatus">
+
+                <option value="1">
+                    Pending
+                </option>
+
+                <option value="2">
+                    Active
+                </option>
+
+                <option value="3">
+                    Finished
+                </option>
+
+                <option value="4">
+                    Cancelled
+                </option>
+
+                <option value="5">
+                    Refused
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelEdit"
+                class="cancel-btn"
+            >
+
+                Cancel
+
+            </button>
+
+            <button
+                id="saveEdit"
+                class="confirm-btn"
+            >
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- TOASTIFY -->
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- JS -->
+
     <script src="../js/messages-list.js"></script>
 
 </body>
+
 </html>

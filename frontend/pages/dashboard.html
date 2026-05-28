@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <title>
+        Dashboard
+    </title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
 </head>
 
 <body>
@@ -23,25 +31,21 @@
 
             <nav>
 
-<nav>
+                <a href="../index.html">
+                    Dashboard
+                </a>
 
-    <a href="../index.html">
-        Dashboard
-    </a>
+                <a href="new-message.html">
+                    New Message
+                </a>
 
-    <a href="new-message.html">
-        New Message
-    </a>
+                <a href="messages.html">
+                    Messages
+                </a>
 
-    <a href="messages.html">
-        Messages
-    </a>
-
-    <a href="bilan.html">
-        Bilan Mensuel
-    </a>
-
-</nav>
+                <a href="bilan.html">
+                    Bilan Mensuel
+                </a>
 
             </nav>
 
@@ -66,18 +70,69 @@
             <section class="cards">
 
                 <div class="card">
-                    <h3>Total Messages</h3>
-                    <p>128</p>
+
+                    <h3>
+                        Total Messages
+                    </h3>
+
+                    <p id="totalMessages">
+                        0
+                    </p>
+
                 </div>
 
                 <div class="card">
-                    <h3>Active Transfers</h3>
-                    <p>14</p>
+
+                    <h3>
+                        Active Transfers
+                    </h3>
+
+                    <p id="activeTransfers">
+                        0
+                    </p>
+
                 </div>
 
                 <div class="card">
-                    <h3>Completed Today</h3>
-                    <p>32</p>
+
+                    <h3>
+                        Finished Transfers
+                    </h3>
+
+                    <p id="finishedTransfers">
+                        0
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- CHARTS -->
+
+            <section class="charts">
+
+                <!-- VOLTAGE CHART -->
+
+                <div class="chart-card">
+
+                    <h2>
+                        Transfers By Voltage
+                    </h2>
+
+                    <canvas id="voltageChart"></canvas>
+
+                </div>
+
+                <!-- STATUS CHART -->
+
+                <div class="chart-card">
+
+                    <h2>
+                        Transfers By Status
+                    </h2>
+
+                    <canvas id="statusChart"></canvas>
+
                 </div>
 
             </section>
@@ -86,5 +141,14 @@
 
     </div>
 
+    <!-- CHART JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- DASHBOARD JS -->
+
+    <script src="../js/dashboard.js"></script>
+
 </body>
+
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>New Message</title>
+    <title>
+        New Message
+    </title>
 
     <link rel="stylesheet"
           href="../css/style.css">
@@ -53,234 +56,329 @@
 
         <main class="main-content">
 
-            <header class="navbar">
-
-                <h1>
-                    Create New Message
-                </h1>
-
-            </header>
-
-            <!-- FORM -->
-
             <form
                 id="messageForm"
-                class="form-container">
+                class="message-form"
+            >
 
-                <!-- GRID -->
+                <!-- HEADER -->
 
-                <div class="form-grid">
+                <div class="form-header">
 
-                    <!-- LOCAL -->
+                    <div>
 
-                    <div class="input-box">
+                        <h1>
+                            Create New Message
+                        </h1>
 
-                        <label>
-                            Local Message Number
-                        </label>
+                        <p class="form-subtitle">
 
-                        <input
-                            type="number"
-                            id="local_message_number"
-                            placeholder="Example: 455"
-                            required
-                        >
+                            Dispatching Transfer Management
+
+                        </p>
 
                     </div>
 
-                    <!-- RPN -->
+                    <div class="form-badge">
 
-                    <div
-                        class="input-box"
-                        id="rpnField">
-
-                        <label>
-                            RPN Number
-                        </label>
-
-                        <input
-                            type="number"
-                            id="correspondent_message_number"
-                            placeholder="Example: 102"
-                        >
-
-                    </div>
-
-                    <!-- DISTRICT MSG -->
-
-                    <div
-                        class="input-box"
-                        id="districtField"
-                        style="display:none;">
-
-                        <label>
-                            District Message Number
-                        </label>
-
-                        <input
-                            type="number"
-                            id="district_message_number"
-                            placeholder="Example: 88"
-                        >
-
-                    </div>
-
-                    <!-- DISTRICT -->
-
-                    <div class="input-box">
-
-                        <label>
-                            District
-                        </label>
-
-                        <select id="district_id">
-
-                            <option value="1">Setif</option>
-                            <option value="2">Bejaia</option>
-                            <option value="3">Jijel</option>
-                            <option value="4">M'sila</option>
-                            <option value="5">Batna</option>
-                            <option value="6">
-                                Bordj Bou Arreridj
-                            </option>
-                            <option value="7">Mila</option>
-                            <option value="8">Biskra</option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- VOLTAGE -->
-
-                    <div class="input-box">
-
-                        <label>
-                            Voltage Level
-                        </label>
-
-                        <select id="voltage_level_id">
-
-                            <option value="1">
-                                60KV
-                            </option>
-
-                            <option value="2">
-                                90KV
-                            </option>
-
-                            <option value="3">
-                                150KV
-                            </option>
-
-                            <option value="4">
-                                220KV
-                            </option>
-
-                            <option value="5">
-                                400KV
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- CHEF -->
-
-                    <div class="input-box">
-
-                        <label>
-                            Chef de conduite
-                        </label>
-
-                        <input
-                            type="text"
-                            id="chef_conduite"
-                            placeholder="Enter name"
-                            required
-                        >
-
-                    </div>
-
-                    <!-- MESSAGE TYPE -->
-
-                    <div class="input-box">
-
-                        <label>
-                            Message Type
-                        </label>
-
-                        <select id="message_type_id">
-
-                            <option value="1">
-                                Demandant
-                            </option>
-
-                            <option value="2">
-                                Informant
-                            </option>
-
-                            <option value="3">
-                                Refus
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- STATUS -->
-
-                    <div class="input-box">
-
-                        <label>
-                            Status
-                        </label>
-
-                        <select id="status_id">
-
-                            <option value="1">
-                                Pending
-                            </option>
-
-                            <option value="2">
-                                Active
-                            </option>
-
-                            <option value="3">
-                                Finished
-                            </option>
-
-                            <option value="4">
-                                Cancelled
-                            </option>
-
-                            <option value="5">
-                                Refused
-                            </option>
-
-                        </select>
+                        SONALGAZ
 
                     </div>
 
                 </div>
 
+                <!-- INFO -->
+
+                <div class="form-info">
+
+                    <div class="info-badge">
+                        Transfer Request
+                    </div>
+
+                    <div class="info-badge">
+                        Dispatching Center
+                    </div>
+
+                    <div class="info-badge">
+                        CRC Setif
+                    </div>
+
+                </div>
+
+                <!-- GENERAL SECTION -->
+
+                <div class="form-section">
+
+                    <h2>
+                        General Information
+                    </h2>
+
+                    <p>
+                        Fill all required transfer information
+                    </p>
+
+                </div>
+
+                <!-- FORM CARD -->
+
+                <div class="form-card">
+
+<div class="form-grid">
+
+    <!-- LOCAL -->
+
+    <div class="input-box">
+
+        <label>
+            Local Message Number
+        </label>
+
+        <input
+            type="number"
+            id="local_message_number"
+            placeholder="Example: 455"
+            required
+        >
+
+    </div>
+
+    <!-- RPN FIELD -->
+
+    <div
+        class="input-box"
+        id="rpnField"
+    >
+
+        <label>
+            RPN Number
+        </label>
+
+        <input
+            type="number"
+            id="correspondent_message_number"
+            placeholder="Example: 102"
+        >
+
+    </div>
+
+    <!-- DISTRICT MESSAGE FIELD -->
+
+    <div
+        class="input-box"
+        id="districtField"
+        style="display:none;"
+    >
+
+        <label>
+            District Message Number
+        </label>
+
+        <input
+            type="number"
+            id="district_message_number"
+            placeholder="Example: 88"
+        >
+
+    </div>
+
+    <!-- DISTRICT -->
+
+    <div class="input-box">
+
+        <label>
+            District
+        </label>
+
+        <select id="district_id">
+
+            <option value="1">
+                Setif
+            </option>
+
+            <option value="2">
+                Bejaia
+            </option>
+
+            <option value="3">
+                Jijel
+            </option>
+
+            <option value="4">
+                M'sila
+            </option>
+
+            <option value="5">
+                Batna
+            </option>
+
+            <option value="6">
+                Bordj Bou Arreridj
+            </option>
+
+            <option value="7">
+                Mila
+            </option>
+
+            <option value="8">
+                Biskra
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- VOLTAGE -->
+
+    <div class="input-box">
+
+        <label>
+            Voltage Level
+        </label>
+
+        <select id="voltage_level_id">
+
+            <option value="1">
+                60KV
+            </option>
+
+            <option value="2">
+                90KV
+            </option>
+
+            <option value="3">
+                150KV
+            </option>
+
+            <option value="4">
+                220KV
+            </option>
+
+            <option value="5">
+                400KV
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- CHEF -->
+
+    <div class="input-box">
+
+        <label>
+            Chef de conduite
+        </label>
+
+        <input
+            type="text"
+            id="chef_conduite"
+            placeholder="Enter name"
+            required
+        >
+
+    </div>
+
+    <!-- MESSAGE TYPE -->
+
+    <div class="input-box">
+
+        <label>
+            Message Type
+        </label>
+
+        <select id="message_type_id">
+
+            <option value="1">
+                Demandant
+            </option>
+
+            <option value="2">
+                Informant
+            </option>
+
+            <option value="3">
+                Refus
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- STATUS -->
+
+    <div class="input-box">
+
+        <label>
+            Status
+        </label>
+
+        <select id="status_id">
+
+            <option value="1">
+                Pending
+            </option>
+
+            <option value="2">
+                Active
+            </option>
+
+            <option value="3">
+                Finished
+            </option>
+
+            <option value="4">
+                Cancelled
+            </option>
+
+            <option value="5">
+                Refused
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+                </div>
+
                 <!-- MOTIF -->
 
-                <div class="input-box">
+                <div class="form-section">
 
-                    <label>
-                        Motif
-                    </label>
+                    <h2>
+                        Transfer Motif
+                    </h2>
 
-                    <textarea
-                        id="motif"
-                        placeholder="Describe the transfer..."
-                        required
-                    ></textarea>
+                    <p>
+                        Describe the transfer request
+                    </p>
+
+                </div>
+
+                <div class="form-card">
+
+                    <div class="input-box">
+
+                        <label>
+                            Motif
+                        </label>
+
+                        <textarea
+                            id="motif"
+                            placeholder="Describe the transfer..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                    <br>
 
                     <button
                         type="button"
                         id="generateAiBtn"
-                        class="ai-btn">
+                        class="ai-btn"
+                    >
 
                         Generate AI Motif
 
@@ -290,28 +388,58 @@
 
                 <!-- NOTES -->
 
-                <div class="input-box">
+                <div class="form-section">
 
-                    <label>
-                        Notes
-                    </label>
+                    <h2>
+                        Additional Notes
+                    </h2>
 
-                    <textarea
-                        id="notes"
-                        placeholder="Additional notes..."
-                    ></textarea>
+                    <p>
+                        Optional dispatching information
+                    </p>
 
                 </div>
 
-                <!-- SAVE BUTTON -->
+                <div class="form-card">
 
-                <button
-                    type="submit"
-                    class="save-btn">
+                    <div class="input-box">
 
-                    Save Message
+                        <label>
+                            Notes
+                        </label>
 
-                </button>
+                        <textarea
+                            id="notes"
+                            placeholder="Additional notes..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+                <!-- ACTIONS -->
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+
+                        Save Message
+
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="reset-btn"
+                    >
+
+                        Reset Form
+
+                    </button>
+
+                </div>
 
             </form>
 
@@ -320,7 +448,11 @@
     </div>
 
     <script src="../js/messages.js"></script>
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>
+

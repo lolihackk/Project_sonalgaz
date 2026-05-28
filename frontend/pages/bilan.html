@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bilan Mensuel</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <title>
+        Bilan Mensuel
+    </title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
 </head>
 
 <body>
@@ -22,25 +30,22 @@
             </h2>
 
             <nav>
-<nav>
 
-    <a href="../index.html">
-        Dashboard
-    </a>
+                <a href="../index.html">
+                    Dashboard
+                </a>
 
-    <a href="new-message.html">
-        New Message
-    </a>
+                <a href="new-message.html">
+                    New Message
+                </a>
 
-    <a href="messages.html">
-        Messages
-    </a>
+                <a href="messages.html">
+                    Messages
+                </a>
 
-    <a href="bilan.html">
-        Bilan Mensuel
-    </a>
-
-</nav>
+                <a href="bilan.html">
+                    Bilan Mensuel
+                </a>
 
             </nav>
 
@@ -50,112 +55,336 @@
 
         <main class="main-content">
 
-            <header class="navbar">
+            <!-- NAVBAR -->
 
-                <h1>
-                    Bilan des Transferts du Mois
-                </h1>
+<!-- BILAN HEADER -->
 
-            </header>
+<div class="bilan-header">
 
-            <!-- CARDS -->
+    <div>
+
+        <h1>
+            Bilan Mensuel des Transferts
+        </h1>
+
+        <p class="bilan-subtitle">
+
+            SONALGAZ • Dispatching Center
+
+        </p>
+
+    </div>
+
+    <div class="bilan-badge">
+
+        Monthly Report
+
+    </div>
+
+</div>
+
+            <!-- FILTER BAR -->
+
+            <div class="search-container">
+
+                <input
+                    type="month"
+                    id="monthFilter"
+                >
+
+                <button
+                    id="loadBilanBtn"
+                    class="save-btn"
+                >
+                    Load Bilan
+                </button>
+
+                <button
+                    id="exportExcelBtn"
+                    class="ai-btn"
+                >
+                    Export Excel
+                </button>
+<button
+    id="printBtn"
+    class="print-btn"
+>
+    Print PDF
+</button>
+            </div>
+
+            <!-- SUMMARY CARDS -->
 
             <section class="cards">
 
                 <div class="card">
-                    <h3>Total Transfers</h3>
-                    <p id="totalTransfers">0</p>
+
+                    <h3>
+                        Total Transfers
+                    </h3>
+
+                    <p id="totalTransfers">
+                        0
+                    </p>
+
                 </div>
 
                 <div class="card">
-                    <h3>Planned Transfers</h3>
-                    <p id="plannedTransfers">0</p>
+
+                    <h3>
+                        Planned Transfers
+                    </h3>
+
+                    <p id="plannedTransfers">
+                        0
+                    </p>
+
                 </div>
 
                 <div class="card">
-                    <h3>Emergency Transfers</h3>
-                    <p id="emergencyTransfers">0</p>
+
+                    <h3>
+                        Emergency Transfers
+                    </h3>
+
+                    <p id="emergencyTransfers">
+                        0
+                    </p>
+
                 </div>
 
                 <div class="card">
-                    <h3>Completed Transfers</h3>
-                    <p id="completedTransfers">0</p>
+
+                    <h3>
+                        Completed Transfers
+                    </h3>
+
+                    <p id="completedTransfers">
+                        0
+                    </p>
+
                 </div>
 
                 <div class="card">
-                    <h3>Refused Transfers</h3>
-                    <p id="refusedTransfers">0</p>
+
+                    <h3>
+                        Refused Transfers
+                    </h3>
+
+                    <p id="refusedTransfers">
+                        0
+                    </p>
+
                 </div>
 
             </section>
-<!-- VOLTAGE TABLE -->
 
-<div class="table-container">
+            <!-- PLANNED TRANSFERS -->
 
-    <h2 style="margin-bottom:20px;">
-        Transfers By Voltage
-    </h2>
+            <div class="table-container">
 
-    <table>
+                <h2 style="margin-bottom:20px;">
 
-        <thead>
+                    Transfers Planifiés
 
-            <tr>
+                </h2>
 
-                <th>Voltage</th>
-                <th>Total</th>
-                <th>Planned</th>
-                <th>Emergency</th>
-                <th>Completed</th>
-                <th>Refused</th>
+                <table>
 
-            </tr>
+                    <thead>
 
-        </thead>
+                        <tr>
 
-        <tbody id="voltageTable">
+                            <th>Voltage</th>
 
-        </tbody>
+                            <th>Planned</th>
 
-    </table>
+                            <th>Completed</th>
 
-</div>
+                            <th>Cancelled / OS</th>
 
-<br><br>
+                            <th>Cancelled / RTE</th>
 
-<!-- OUVRAGE TABLE -->
+                        </tr>
 
-<div class="table-container">
+                    </thead>
 
-    <h2 style="margin-bottom:20px;">
-        Transfers By Ouvrage
-    </h2>
+                    <tbody id="plannedTable">
 
-    <table>
+                    </tbody>
 
-        <thead>
+                </table>
 
-            <tr>
+            </div>
 
-                <th>Ouvrage</th>
-                <th>Total</th>
+            <br><br>
 
-            </tr>
+            <!-- NON PLANNED -->
 
-        </thead>
+            <div class="table-container">
 
-        <tbody id="ouvrageTable">
+                <h2 style="margin-bottom:20px;">
 
-        </tbody>
+                    Transfers Non Planifiés
 
-    </table>
+                </h2>
 
-</div>
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Voltage</th>
+
+                            <th>Demandes</th>
+
+                            <th>Accordés</th>
+
+                            <th>Réalisés</th>
+
+                            <th>Annulés / OS</th>
+
+                            <th>Annulés / RTE</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="voltageTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <br><br>
+
+            <!-- OUVRAGE -->
+
+            <div class="table-container">
+
+                <h2 style="margin-bottom:20px;">
+
+                    Transfers By Ouvrage
+
+                </h2>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Ouvrage</th>
+
+                            <th>Total</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="ouvrageTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <br><br>
+
+            <!-- KPI -->
+
+            <div class="table-container">
+
+                <h2 style="margin-bottom:20px;">
+
+                    KPI & Performance
+
+                </h2>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Indicator</th>
+
+                            <th>Objective</th>
+
+                            <th>Result</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                Transfer Approval Rate
+                            </td>
+
+                            <td>
+                                95%
+                            </td>
+
+                            <td id="approvalRate">
+                                0%
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                Completion Rate
+                            </td>
+
+                            <td>
+                                95%
+                            </td>
+
+                            <td id="completionRate">
+                                0%
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                Refusal Rate
+                            </td>
+
+                            <td>
+                                &lt; 10%
+                            </td>
+
+                            <td id="refusalRate">
+                                0%
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </main>
 
     </div>
 
+    <!-- JS -->
+
     <script src="../js/bilan.js"></script>
 
 </body>
+
 </html>

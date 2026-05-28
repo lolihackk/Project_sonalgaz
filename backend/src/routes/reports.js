@@ -4,139 +4,372 @@ const router = express.Router();
 
 const pool = require("../config/db");
 
+const XLSX = require("xlsx");
+
+/* =========================
+   MONTHLY SUMMARY
+========================= */
+
 router.get("/monthly", async (req, res) => {
 
     try {
 
-        const result = await pool.query(`
+        const { month } = req.query;
 
-            SELECT
+        const result =
+            await pool.query(
 
-                COUNT(*) AS total_transfers,
+                `
+                SELECT
 
-                COUNT(*) FILTER (
-                    WHERE is_emergency = false
-                ) AS planned_transfers,
+                    COUNT(*) AS total_transfers,
 
-                COUNT(*) FILTER (
-                    WHERE is_emergency = true
-                ) AS emergency_transfers,
+                    COUNT(*) FILTER (
+                        WHERE is_emergency = false
+                    ) AS planned_transfers,
 
-                COUNT(*) FILTER (
-                    WHERE transfer_completed = true
-                ) AS completed_transfers,
+                    COUNT(*) FILTER (
+                        WHERE is_emergency = true
+                    ) AS emergency_transfers,
 
-                COUNT(*) FILTER (
-                    WHERE status_id = 5
-                ) AS refused_transfers
+                    COUNT(*) FILTER (
+                        WHERE transfer_completed = true
+                    ) AS completed_transfers,
 
-            FROM messages
+                    COUNT(*) FILTER (
+                        WHERE status_id = 5
+                    ) AS refused_transfers
 
-            WHERE DATE_TRUNC(
-                'month',
-                created_date
-            ) = DATE_TRUNC(
-                'month',
-                CURRENT_DATE
-            )
+                FROM messages
 
-        `);
+                WHERE TO_CHAR(
+                    created_date,
+                    'YYYY-MM'
+                ) = $1
+                `,
+                [month]
+            );
 
-        res.json(result.rows[0]);
+        res.json(
+            result.rows[0]
+        );
 
     } catch (error) {
 
         console.error(error);
 
         res.status(500).json({
-            error: "Failed to generate report"
+
+            error:
+                "Failed to generate report"
         });
     }
 });
+
+/* =========================
+   BY VOLTAGE
+========================= */
+
 router.get("/by-voltage", async (req, res) => {
 
     try {
 
-        const result = await pool.query(`
+        const { month } = req.query;
 
-            SELECT
+        const result =
+            await pool.query(
 
-                voltage_levels.label AS voltage,
+                `
+                SELECT
 
-                COUNT(*) AS total,
+                    voltage_levels.label AS voltage,
 
-                COUNT(*) FILTER (
-                    WHERE is_emergency = false
-                ) AS planned,
+                    COUNT(*) AS total,
 
-                COUNT(*) FILTER (
-                    WHERE is_emergency = true
-                ) AS emergency,
+                    COUNT(*) FILTER (
+                        WHERE is_emergency = false
+                    ) AS planned,
 
-                COUNT(*) FILTER (
-                    WHERE transfer_completed = true
-                ) AS completed,
+                    COUNT(*) FILTER (
+                        WHERE transfer_completed = true
+                    ) AS completed,
 
-                COUNT(*) FILTER (
-                    WHERE status_id = 5
-                ) AS refused
+                    COUNT(*) FILTER (
+                        WHERE status_id = 4
+                    ) AS cancelled_os,
 
-            FROM messages
+                    COUNT(*) FILTER (
+                        WHERE status_id = 5
+                    ) AS cancelled_rte
 
-            LEFT JOIN voltage_levels
-            ON messages.voltage_level_id =
-            voltage_levels.id
+                FROM messages
 
-            GROUP BY voltage_levels.label
+                LEFT JOIN voltage_levels
+                ON messages.voltage_level_id =
+                   voltage_levels.id
 
-            ORDER BY voltage_levels.label
+                WHERE TO_CHAR(
+                    created_date,
+                    'YYYY-MM'
+                ) = $1
 
-        `);
+                GROUP BY voltage_levels.label
 
-        res.json(result.rows);
+                ORDER BY voltage_levels.label
+                `,
+                [month]
+            );
+
+        res.json(
+            result.rows
+        );
 
     } catch (error) {
 
         console.error(error);
 
         res.status(500).json({
-            error: "Failed to load voltage report"
+
+            error:
+                "Failed to load voltage report"
         });
     }
 });
+
+/* =========================
+   PLANNED REPORT
+========================= */
+
+router.get("/planned", async (req, res) => {
+
+    try {
+
+        const { month } = req.query;
+
+        const result =
+            await pool.query(
+
+                `
+                SELECT
+
+                    voltage_levels.label AS voltage,
+
+                    COUNT(*) FILTER (
+                        WHERE is_emergency = false
+                    ) AS planned,
+
+                    COUNT(*) FILTER (
+                        WHERE transfer_completed = true
+                    ) AS completed,
+
+                    COUNT(*) FILTER (
+                        WHERE status_id = 4
+                    ) AS cancelled_os,
+
+                    COUNT(*) FILTER (
+                        WHERE status_id = 5
+                    ) AS cancelled_rte
+
+                FROM messages
+
+                LEFT JOIN voltage_levels
+                ON messages.voltage_level_id =
+                   voltage_levels.id
+
+                WHERE TO_CHAR(
+                    created_date,
+                    'YYYY-MM'
+                ) = $1
+
+                GROUP BY voltage_levels.label
+
+                ORDER BY voltage_levels.label
+                `,
+                [month]
+            );
+
+        res.json(
+            result.rows
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            error:
+                "Failed to load planned report"
+        });
+    }
+});
+
+/* =========================
+   BY OUVRAGE
+========================= */
+
 router.get("/by-ouvrage", async (req, res) => {
 
     try {
 
-        const result = await pool.query(`
+        const { month } = req.query;
 
-            SELECT
+        const result =
+            await pool.query(
 
-                ouvrage_types.name AS ouvrage,
+                `
+                SELECT
 
-                COUNT(*) AS total
+                    ouvrage_types.name AS ouvrage,
 
-            FROM messages
+                    COUNT(*) AS total
 
-            LEFT JOIN ouvrage_types
-            ON messages.ouvrage_type_id =
-            ouvrage_types.id
+                FROM messages
 
-            GROUP BY ouvrage_types.name
+                LEFT JOIN ouvrage_types
+                ON messages.ouvrage_type_id =
+                   ouvrage_types.id
 
-            ORDER BY total DESC
+                WHERE TO_CHAR(
+                    created_date,
+                    'YYYY-MM'
+                ) = $1
 
-        `);
+                GROUP BY ouvrage_types.name
 
-        res.json(result.rows);
+                ORDER BY total DESC
+                `,
+                [month]
+            );
+
+        res.json(
+            result.rows
+        );
 
     } catch (error) {
 
         console.error(error);
 
         res.status(500).json({
-            error: "Failed to load ouvrage report"
+
+            error:
+                "Failed to load ouvrage report"
         });
     }
 });
+
+/* =========================
+   EXPORT EXCEL
+========================= */
+
+router.get("/export-excel", async (req, res) => {
+
+    try {
+
+        const { month } = req.query;
+
+        const result =
+            await pool.query(
+
+                `
+                SELECT
+
+                    messages.message_number,
+
+                    messages.local_message_number,
+
+                    messages.correspondent_message_number,
+
+                    messages.motif,
+
+                    messages.created_date,
+
+                    messages.created_time,
+
+                    voltage_levels.label AS voltage,
+
+                    statuses.name AS status,
+
+                    districts.name AS district
+
+                FROM messages
+
+                LEFT JOIN voltage_levels
+                ON messages.voltage_level_id =
+                   voltage_levels.id
+
+                LEFT JOIN statuses
+                ON messages.status_id =
+                   statuses.id
+
+                LEFT JOIN districts
+                ON messages.district_id =
+                   districts.id
+
+                WHERE TO_CHAR(
+                    created_date,
+                    'YYYY-MM'
+                ) = $1
+
+                ORDER BY messages.id DESC
+                `,
+                [month]
+            );
+
+        const workbook =
+            XLSX.utils.book_new();
+
+        const worksheet =
+            XLSX.utils.json_to_sheet(
+                result.rows
+            );
+
+        XLSX.utils.book_append_sheet(
+
+            workbook,
+
+            worksheet,
+
+            "Bilan"
+        );
+
+        const buffer =
+            XLSX.write(
+
+                workbook,
+
+                {
+                    type: "buffer",
+                    bookType: "xlsx"
+                }
+            );
+
+        res.setHeader(
+
+            "Content-Disposition",
+
+            `attachment; filename=BILAN_${month}.xlsx`
+        );
+
+        res.setHeader(
+
+            "Content-Type",
+
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        );
+
+        res.send(buffer);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            error:
+                "Excel export failed"
+        });
+    }
+});
+
 module.exports = router;

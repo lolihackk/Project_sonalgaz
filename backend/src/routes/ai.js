@@ -26,17 +26,22 @@ router.post(
     "/generate-motif",
     async (req, res) => {
 
-    console.log("AI route reached");
+    console.log(
+        "AI route reached"
+    );
 
     try {
 
-        const { prompt } = req.body;
+        const { prompt } =
+            req.body;
 
         /* MODEL */
 
         const model =
             genAI.getGenerativeModel({
-                model: "gemini-1.5-flash"
+
+                model:
+                    "gemini-2.0-flash"
             });
 
         /* AI REQUEST */
@@ -51,43 +56,26 @@ dispatching assistant.
 Generate professional electrical
 transfer motifs in French.
 
-Keep the response:
+Rules:
 - concise
 - technical
 - professional
+- realistic dispatching language
+- maximum 3 lines
+- no markdown
+- no bullet points
 
 Request:
 ${prompt}
 `
             );
 
-        /* FULL DEBUG */
+        /* EXTRACT TEXT */
 
-        console.log(
-            JSON.stringify(
-                result,
-                null,
-                2
-            )
-        );
+        const text =
+            await result.response.text();
 
-        /* SAFE EXTRACTION */
-
-        let text = "";
-
-        if (
-            result &&
-            result.response &&
-            result.response.candidates &&
-            result.response.candidates.length > 0
-        ) {
-
-            text =
-                result.response
-                .candidates[0]
-                .content.parts[0]
-                .text;
-        }
+        /* DEBUG */
 
         console.log(
             "Generated text:",
@@ -97,6 +85,7 @@ ${prompt}
         /* SEND RESPONSE */
 
         res.json({
+
             motif: text
         });
 
@@ -107,11 +96,13 @@ ${prompt}
             error
         );
 
-        res.status(500).json({
-            error:
-                "AI generation failed"
-        });
+res.status(500).json({
+
+    error:
+        error.message
+});
     }
 });
 
 module.exports = router;
+
