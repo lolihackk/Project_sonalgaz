@@ -1,3 +1,4 @@
+
 const express = require("express");
 
 const router = express.Router();
@@ -6,21 +7,23 @@ const {
     GoogleGenerativeAI
 } = require("@google/generative-ai");
 
-/* CHECK API KEY */
+/* =====================================
+   GEMINI SETUP
+===================================== */
 
 console.log(
     "Gemini Key:",
     process.env.GEMINI_API_KEY
 );
 
-/* GEMINI SETUP */
-
 const genAI =
     new GoogleGenerativeAI(
         process.env.GEMINI_API_KEY
     );
 
-/* AI MOTIF ROUTE */
+/* =====================================
+   AI MOTIF ROUTE
+===================================== */
 
 router.post(
     "/generate-motif",
@@ -35,13 +38,23 @@ router.post(
         const { prompt } =
             req.body;
 
+        /* VALIDATION */
+
+        if (!prompt) {
+
+            return res.status(400).json({
+
+                error:
+                    "Prompt is required"
+            });
+        }
+
         /* MODEL */
 
         const model =
             genAI.getGenerativeModel({
 
-                model:
-                    "gemini-2.0-flash"
+                model: "gemini-1.5-flash"
             });
 
         /* AI REQUEST */
@@ -53,8 +66,9 @@ router.post(
 You are a professional SONALGAZ
 dispatching assistant.
 
-Generate professional electrical
-transfer motifs in French.
+Your role is to generate
+professional electrical transfer
+motifs in French.
 
 Rules:
 - concise
@@ -64,6 +78,7 @@ Rules:
 - maximum 3 lines
 - no markdown
 - no bullet points
+- no titles
 
 Request:
 ${prompt}
@@ -75,14 +90,12 @@ ${prompt}
         const text =
             await result.response.text();
 
-        /* DEBUG */
-
         console.log(
             "Generated text:",
             text
         );
 
-        /* SEND RESPONSE */
+        /* RESPONSE */
 
         res.json({
 
@@ -96,11 +109,41 @@ ${prompt}
             error
         );
 
-res.status(500).json({
+        /* QUOTA ERROR */
 
-    error:
-        error.message
-});
+        if (
+            error.message &&
+            error.message.includes("429")
+        ) {
+
+            return res.status(429).json({
+
+                error:
+                    "AI quota reached. Please wait a few seconds."
+            });
+        }
+
+        /* EXPIRED KEY */
+
+        if (
+            error.message &&
+            error.message.includes("API key expired")
+        ) {
+
+            return res.status(401).json({
+
+                error:
+                    "Gemini API key expired."
+            });
+        }
+
+        /* GENERIC */
+
+        res.status(500).json({
+
+            error:
+                "AI generation failed"
+        });
     }
 });
 

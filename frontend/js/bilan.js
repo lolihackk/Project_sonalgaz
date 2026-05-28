@@ -318,21 +318,393 @@ async function loadOuvrageReport(month) {
     }
 }
 
-/* EXPORT EXCEL */
+/* =====================================
+   ENTERPRISE EXCEL EXPORT
+===================================== */
 
 exportExcelBtn.addEventListener(
     "click",
-    () => {
+    async () => {
 
-        const month =
-            monthFilter.value;
-
-        window.open(
-
-            `http://localhost:5000/reports/export-excel?month=${month}`
-        );
+        await exportExcel();
     }
 );
+
+async function exportExcel() {
+
+    try {
+
+        const workbook =
+            XLSX.utils.book_new();
+
+        const month =
+            monthFilter.value || "report";
+
+        /* =====================================
+           FETCH FULL DETAILS
+        ===================================== */
+
+        const response =
+            await fetch(
+
+                `http://localhost:5000/reports/full-details?month=${month}`
+            );
+
+        const details =
+            await response.json();
+
+        /* =====================================
+           SUMMARY SHEET
+        ===================================== */
+
+        const summaryData = [
+
+            ["SONALGAZ"],
+            ["Dispatching Center"],
+            [""],
+
+            ["MONTHLY TRANSFER REPORT"],
+
+            ["Month", month],
+
+            [
+                "Export Date",
+                new Date().toLocaleDateString()
+            ],
+
+            [""],
+
+            ["KPI", "Value"],
+
+            [
+                "Total Transfers",
+                totalTransfers.textContent
+            ],
+
+            [
+                "Planned Transfers",
+                plannedTransfers.textContent
+            ],
+
+            [
+                "Emergency Transfers",
+                emergencyTransfers.textContent
+            ],
+
+            [
+                "Completed Transfers",
+                completedTransfers.textContent
+            ],
+
+            [
+                "Refused Transfers",
+                refusedTransfers.textContent
+            ]
+        ];
+
+        const summarySheet =
+            XLSX.utils.aoa_to_sheet(
+                summaryData
+            );
+
+        summarySheet["!cols"] = [
+
+            { wch: 35 },
+            { wch: 25 }
+        ];
+
+        /* HEADER STYLE */
+
+        [
+            "A1",
+            "A2",
+            "A4"
+        ].forEach(cell => {
+
+            if (summarySheet[cell]) {
+
+                summarySheet[cell].s = {
+
+                    font: {
+
+                        bold: true,
+                        sz: 16,
+                        color: {
+                            rgb: "FFFFFF"
+                        }
+                    },
+
+                    fill: {
+
+                        fgColor: {
+                            rgb: "1E3A8A"
+                        }
+                    }
+                };
+            }
+        });
+
+        XLSX.utils.book_append_sheet(
+
+            workbook,
+            summarySheet,
+            "Summary"
+        );
+
+        /* =====================================
+           PLANNED TABLE
+        ===================================== */
+
+        const plannedSheet =
+            XLSX.utils.table_to_sheet(
+
+                document.getElementById(
+                    "plannedExportTable"
+                )
+            );
+
+        plannedSheet["!cols"] = [
+
+            { wch: 18 },
+            { wch: 15 },
+            { wch: 15 },
+            { wch: 18 },
+            { wch: 18 }
+        ];
+
+        XLSX.utils.book_append_sheet(
+
+            workbook,
+            plannedSheet,
+            "Planned Transfers"
+        );
+
+        /* =====================================
+           NON PLANNED TABLE
+        ===================================== */
+
+        const voltageSheet =
+            XLSX.utils.table_to_sheet(
+
+                document.getElementById(
+                    "voltageExportTable"
+                )
+            );
+
+        voltageSheet["!cols"] = [
+
+            { wch: 18 },
+            { wch: 15 },
+            { wch: 15 },
+            { wch: 15 },
+            { wch: 18 },
+            { wch: 18 }
+        ];
+
+        XLSX.utils.book_append_sheet(
+
+            workbook,
+            voltageSheet,
+            "Non Planned"
+        );
+
+        /* =====================================
+           OUVRAGE TABLE
+        ===================================== */
+
+        const ouvrageSheet =
+            XLSX.utils.table_to_sheet(
+
+                document.getElementById(
+                    "ouvrageExportTable"
+                )
+            );
+
+        ouvrageSheet["!cols"] = [
+
+            { wch: 30 },
+            { wch: 15 }
+        ];
+
+        XLSX.utils.book_append_sheet(
+
+            workbook,
+            ouvrageSheet,
+            "Ouvrages"
+        );
+
+        /* =====================================
+           DETAILED TRANSFERS SHEET
+        ===================================== */
+
+        const detailData = [
+
+            [
+
+                "Date",
+
+                "Voltage",
+
+                "District",
+
+                "Type",
+
+                "Status",
+
+                "Chef Conduite",
+
+                "Motif"
+            ]
+        ];
+
+        details.forEach(item => {
+
+            detailData.push([
+
+                item.created_date,
+
+                item.voltage,
+
+                item.district,
+
+                item.message_type,
+
+                item.status,
+
+                item.chef_conduite,
+
+                item.motif
+            ]);
+        });
+
+        const detailSheet =
+            XLSX.utils.aoa_to_sheet(
+                detailData
+            );
+
+        detailSheet["!cols"] = [
+
+            { wch: 15 },
+            { wch: 15 },
+            { wch: 20 },
+            { wch: 18 },
+            { wch: 18 },
+            { wch: 22 },
+            { wch: 60 }
+        ];
+
+        /* HEADER COLORS */
+
+        const range =
+            XLSX.utils.decode_range(
+                detailSheet["!ref"]
+            );
+
+        for (
+            let C = range.s.c;
+            C <= range.e.c;
+            ++C
+        ) {
+
+            const address =
+                XLSX.utils.encode_cell({
+                    r: 0,
+                    c: C
+                });
+
+            if (!detailSheet[address]) {
+
+                continue;
+            }
+
+            detailSheet[address].s = {
+
+                font: {
+
+                    bold: true,
+                    color: {
+                        rgb: "FFFFFF"
+                    }
+                },
+
+                fill: {
+
+                    fgColor: {
+                        rgb: "2563EB"
+                    }
+                },
+
+                alignment: {
+
+                    horizontal: "center"
+                }
+            };
+        }
+
+        XLSX.utils.book_append_sheet(
+
+            workbook,
+            detailSheet,
+            "Detailed Transfers"
+        );
+
+        /* =====================================
+           EXPORT FILE
+        ===================================== */
+
+        XLSX.writeFile(
+
+            workbook,
+
+            `SONALGAZ_Enterprise_Report_${month}.xlsx`
+        );
+
+        Toastify({
+
+            text:
+                "Enterprise Excel exported successfully",
+
+            duration: 3000,
+
+            gravity: "top",
+
+            position: "right",
+
+            style: {
+
+                background:
+                    "linear-gradient(to right, #22c55e, #16a34a)"
+            }
+
+        }).showToast();
+
+    } catch (error) {
+
+        console.error(error);
+
+        Toastify({
+
+            text:
+                "Failed to export Excel",
+
+            duration: 3000,
+
+            gravity: "top",
+
+            position: "right",
+
+            style: {
+
+                background:
+                    "linear-gradient(to right, #ef4444, #dc2626)"
+            }
+
+        }).showToast();
+    }
+}
+
+
+
 
 /* LOAD BUTTON */
 
@@ -357,6 +729,26 @@ printBtn.addEventListener(
         window.print();
     }
 );
+
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        () => {
+
+            localStorage.clear();
+
+            window.location.href =
+                "../login.html";
+        }
+    );
+}
 /* INITIAL LOAD */
 
 loadBilan();

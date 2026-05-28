@@ -372,4 +372,87 @@ router.get("/export-excel", async (req, res) => {
     }
 });
 
+/* =====================================
+   FULL DETAILS REPORT
+===================================== */
+
+router.get(
+    "/full-details",
+    async (req, res) => {
+
+    try {
+
+        const { month } =
+            req.query;
+
+        const result =
+            await pool.query(
+
+`
+SELECT
+
+    messages.created_date,
+
+    voltage_levels.label
+        AS voltage,
+
+    districts.name
+        AS district,
+
+    message_types.name
+        AS message_type,
+
+    statuses.name
+        AS status,
+
+    messages.chef_conduite,
+
+    messages.motif
+
+FROM messages
+
+LEFT JOIN voltage_levels
+ON messages.voltage_level_id =
+voltage_levels.id
+
+LEFT JOIN districts
+ON messages.district_id =
+districts.id
+
+LEFT JOIN message_types
+ON messages.message_type_id =
+message_types.id
+
+LEFT JOIN statuses
+ON messages.status_id =
+statuses.id
+
+WHERE TO_CHAR(
+    messages.created_date,
+    'YYYY-MM'
+) = $1
+
+ORDER BY
+messages.created_date DESC
+`,
+                [month]
+            );
+
+        res.json(
+            result.rows
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            error:
+                "Failed to load detailed report"
+        });
+    }
+});
+
+
 module.exports = router;

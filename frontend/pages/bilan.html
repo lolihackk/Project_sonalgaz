@@ -46,7 +46,12 @@
                 <a href="bilan.html">
                     Bilan Mensuel
                 </a>
+<button id="logoutBtn"
+        class="logout-btn">
 
+    Logout
+
+</button>
             </nav>
 
         </aside>
@@ -61,27 +66,25 @@
 
 <div class="bilan-header">
 
-    <div>
+    <div class="bilan-header-left">
 
         <h1>
             Bilan Mensuel des Transferts
         </h1>
 
         <p class="bilan-subtitle">
-
             SONALGAZ • Dispatching Center
-
         </p>
 
     </div>
 
     <div class="bilan-badge">
-
         Monthly Report
-
     </div>
 
 </div>
+
+
 
             <!-- FILTER BAR -->
 
@@ -181,117 +184,118 @@
 
             <!-- PLANNED TRANSFERS -->
 
-            <div class="table-container">
 
-                <h2 style="margin-bottom:20px;">
+<!-- PLANNED TRANSFERS -->
 
-                    Transfers Planifiés
+<div class="table-container">
 
-                </h2>
+    <h2 style="margin-bottom:20px;">
 
-                <table>
+        Transfers Planifiés
 
-                    <thead>
+    </h2>
 
-                        <tr>
+    <table id="plannedExportTable">
 
-                            <th>Voltage</th>
+        <thead>
 
-                            <th>Planned</th>
+            <tr>
 
-                            <th>Completed</th>
+                <th>Voltage</th>
 
-                            <th>Cancelled / OS</th>
+                <th>Planned</th>
 
-                            <th>Cancelled / RTE</th>
+                <th>Completed</th>
 
-                        </tr>
+                <th>Cancelled / OS</th>
 
-                    </thead>
+                <th>Cancelled / RTE</th>
 
-                    <tbody id="plannedTable">
+            </tr>
 
-                    </tbody>
+        </thead>
 
-                </table>
+        <tbody id="plannedTable">
 
-            </div>
+        </tbody>
 
-            <br><br>
+    </table>
 
-            <!-- NON PLANNED -->
+</div>
 
-            <div class="table-container">
+<!-- NON PLANNED -->
 
-                <h2 style="margin-bottom:20px;">
+<div class="table-container">
 
-                    Transfers Non Planifiés
+    <h2 style="margin-bottom:20px;">
 
-                </h2>
+        Transfers Non Planifiés
 
-                <table>
+    </h2>
 
-                    <thead>
+    <table id="voltageExportTable">
 
-                        <tr>
+        <thead>
 
-                            <th>Voltage</th>
+            <tr>
 
-                            <th>Demandes</th>
+                <th>Voltage</th>
 
-                            <th>Accordés</th>
+                <th>Demandes</th>
 
-                            <th>Réalisés</th>
+                <th>Accordés</th>
 
-                            <th>Annulés / OS</th>
+                <th>Réalisés</th>
 
-                            <th>Annulés / RTE</th>
+                <th>Annulés / OS</th>
 
-                        </tr>
+                <th>Annulés / RTE</th>
 
-                    </thead>
+            </tr>
 
-                    <tbody id="voltageTable">
+        </thead>
 
-                    </tbody>
+        <tbody id="voltageTable">
 
-                </table>
+        </tbody>
 
-            </div>
+    </table>
 
-            <br><br>
+</div>
 
-            <!-- OUVRAGE -->
+<!-- OUVRAGE -->
 
-            <div class="table-container">
+<div class="table-container">
 
-                <h2 style="margin-bottom:20px;">
+    <h2 style="margin-bottom:20px;">
 
-                    Transfers By Ouvrage
+        Transfers By Ouvrage
 
-                </h2>
+    </h2>
 
-                <table>
+    <table id="ouvrageExportTable">
 
-                    <thead>
+        <thead>
 
-                        <tr>
+            <tr>
 
-                            <th>Ouvrage</th>
+                <th>Ouvrage</th>
 
-                            <th>Total</th>
+                <th>Total</th>
 
-                        </tr>
+            </tr>
 
-                    </thead>
+        </thead>
 
-                    <tbody id="ouvrageTable">
+        <tbody id="ouvrageTable">
 
-                    </tbody>
+        </tbody>
 
-                </table>
+    </table>
 
-            </div>
+</div>
+
+
 
             <br><br>
 
@@ -381,9 +385,16 @@
 
     </div>
 
-    <!-- JS -->
 
-    <script src="../js/bilan.js"></script>
+<!-- SHEETJS -->
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+<!-- JS -->
+
+<script src="../js/bilan.js"></script>
+
+
 
 </body>
 
