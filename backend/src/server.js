@@ -3,7 +3,10 @@ const cors = require("cors");
 require("dotenv").config({
     path: "../.env"
 });
-
+const usersRoutes =
+    require(
+        "./routes/users"
+    );
 const pool = require("./config/db");
 const messagesRoutes = require("./routes/messages");
 const reportsRoutes = require("./routes/reports");
@@ -17,6 +20,10 @@ app.use("/messages", messagesRoutes);
 app.use("/reports", reportsRoutes);
 app.use("/auth", authRoutes);
 app.use("/ai", aiRoutes);
+app.use(
+    "/users",
+    usersRoutes
+);
 app.get("/", async (req, res) => {
     try {
         const result = await pool.query("SELECT NOW()");

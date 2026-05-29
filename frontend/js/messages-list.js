@@ -114,9 +114,22 @@ async function loadMessages(
     try {
 
         const response =
-            await fetch(
-                "http://localhost:5000/messages"
-            );
+    await fetch(
+
+        "http://localhost:5000/messages",
+
+        {
+
+            headers: {
+
+                Authorization:
+                    "Bearer " +
+                    localStorage.getItem(
+                        "token"
+                    )
+            }
+        }
+    );
 
         const messages =
             await response.json();
@@ -208,17 +221,29 @@ const row = `
         ${message.district}
     </td>
 
-    <td>
-        ${message.voltage}
-    </td>
+<td>
+    ${message.voltage}
+</td>
 
-    <td>
-        ${getStatusBadge(message.status)}
-    </td>
+<td>
+    ${message.ouvrage}
+</td>
 
-    <td>
+<td>
+    ${getStatusBadge(message.status)}
+</td>
+
+<td class="motif-cell">
+
+    <div class="motif-preview">
         ${message.motif}
-    </td>
+    </div>
+
+    <div class="motif-tooltip">
+        ${message.motif}
+    </div>
+
+</td>
 
     <td>
         ${message.chef_conduite}
@@ -319,14 +344,24 @@ confirmDeleteBtn.addEventListener(
 
     try {
 
-        await fetch(
+await fetch(
 
-            `http://localhost:5000/messages/${selectedDeleteId}`,
+    `http://localhost:5000/messages/${selectedDeleteId}`,
 
-            {
-                method: "DELETE"
-            }
-        );
+    {
+
+        method: "DELETE",
+
+        headers: {
+
+            Authorization:
+                "Bearer " +
+                localStorage.getItem(
+                    "token"
+                )
+        }
+    }
+);
 
         deleteModal.style.display =
             "none";
@@ -380,10 +415,23 @@ async function openEditModal(id) {
 
     selectedEditId = id;
 
-    const response =
-        await fetch(
-            "http://localhost:5000/messages"
-        );
+const response =
+    await fetch(
+
+        "http://localhost:5000/messages",
+
+        {
+
+            headers: {
+
+                Authorization:
+                    "Bearer " +
+                    localStorage.getItem(
+                        "token"
+                    )
+            }
+        }
+    );
 
     const messages =
         await response.json();
@@ -430,10 +478,18 @@ saveEditBtn.addEventListener(
             {
                 method: "PUT",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+headers: {
+
+    "Content-Type":
+        "application/json",
+
+
+    Authorization:
+        "Bearer " +
+        localStorage.getItem(
+            "token"
+        )
+},
 
                 body: JSON.stringify({
 

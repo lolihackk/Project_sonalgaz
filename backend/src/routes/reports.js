@@ -24,17 +24,17 @@ router.get("/monthly", async (req, res) => {
 
                     COUNT(*) AS total_transfers,
 
-                    COUNT(*) FILTER (
-                        WHERE is_emergency = false
-                    ) AS planned_transfers,
+COUNT(*) FILTER (
+    WHERE message_type_id = 1
+) AS planned_transfers,
 
                     COUNT(*) FILTER (
                         WHERE is_emergency = true
                     ) AS emergency_transfers,
 
-                    COUNT(*) FILTER (
-                        WHERE transfer_completed = true
-                    ) AS completed_transfers,
+COUNT(*) FILTER (
+    WHERE status_id = 3
+) AS completed_transfers,
 
                     COUNT(*) FILTER (
                         WHERE status_id = 5
@@ -86,13 +86,13 @@ router.get("/by-voltage", async (req, res) => {
 
                     COUNT(*) AS total,
 
-                    COUNT(*) FILTER (
-                        WHERE is_emergency = false
-                    ) AS planned,
+COUNT(*) FILTER (
+    WHERE message_type_id = 1
+) AS planned,
 
-                    COUNT(*) FILTER (
-                        WHERE transfer_completed = true
-                    ) AS completed,
+COUNT(*) FILTER (
+    WHERE status_id = 3
+) AS completed,
 
                     COUNT(*) FILTER (
                         WHERE status_id = 4
@@ -154,13 +154,13 @@ router.get("/planned", async (req, res) => {
 
                     voltage_levels.label AS voltage,
 
-                    COUNT(*) FILTER (
-                        WHERE is_emergency = false
-                    ) AS planned,
+COUNT(*) FILTER (
+    WHERE message_type_id = 1
+) AS planned,
 
-                    COUNT(*) FILTER (
-                        WHERE transfer_completed = true
-                    ) AS completed,
+COUNT(*) FILTER (
+    WHERE status_id = 3
+) AS completed,
 
                     COUNT(*) FILTER (
                         WHERE status_id = 4
@@ -208,47 +208,74 @@ router.get("/planned", async (req, res) => {
    BY OUVRAGE
 ========================= */
 
-router.get("/by-ouvrage", async (req, res) => {
+router.get(
+    "/by-ouvrage",
+    async (req, res) => {
 
     try {
 
-        const { month } = req.query;
+        const { month } =
+            req.query;
+
 
         const result =
             await pool.query(
 
-                `
-                SELECT
+`
+SELECT
 
-                    ouvrage_types.name AS ouvrage,
+    CONCAT(
+        ouvrage_types.name,
+        ' ',
+        voltage_levels.label
+    ) AS ouvrage,
 
-                    COUNT(*) AS total
+    COUNT(*) AS total
 
-                FROM messages
+FROM messages
 
-                LEFT JOIN ouvrage_types
-                ON messages.ouvrage_type_id =
-                   ouvrage_types.id
 
-                WHERE TO_CHAR(
-                    created_date,
-                    'YYYY-MM'
-                ) = $1
+LEFT JOIN ouvrage_types
+ON messages.ouvrage_type_id =
+ouvrage_types.id
 
-                GROUP BY ouvrage_types.name
 
-                ORDER BY total DESC
-                `,
-                [month]
-            );
+LEFT JOIN voltage_levels
+ON messages.voltage_level_id =
+voltage_levels.id
+
+
+WHERE TO_CHAR(
+    messages.created_date,
+    'YYYY-MM'
+) = $1
+
+
+GROUP BY
+
+    ouvrage_types.name,
+
+    voltage_levels.label
+
+
+ORDER BY
+
+    total DESC
+`,
+            [month]
+        );
+
 
         res.json(
             result.rows
         );
 
+
     } catch (error) {
 
+
         console.error(error);
+
 
         res.status(500).json({
 
@@ -396,6 +423,13 @@ SELECT
     voltage_levels.label
         AS voltage,
 
+
+    CONCAT(
+        ouvrage_types.name,
+        ' ',
+        voltage_levels.label
+    ) AS ouvrage,
+
     districts.name
         AS district,
 
@@ -414,6 +448,10 @@ FROM messages
 LEFT JOIN voltage_levels
 ON messages.voltage_level_id =
 voltage_levels.id
+
+LEFT JOIN ouvrage_types
+ON messages.ouvrage_type_id =
+ouvrage_types.id
 
 LEFT JOIN districts
 ON messages.district_id =

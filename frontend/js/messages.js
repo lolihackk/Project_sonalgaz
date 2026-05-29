@@ -53,6 +53,84 @@ voltageSelect.addEventListener(
 );
 
 /* =========================================
+   PROFESSIONAL TOAST
+========================================= */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    let background;
+
+
+    if (type === "success") {
+
+        background =
+            "linear-gradient(135deg,#22c55e,#16a34a)";
+
+    } else if (type === "error") {
+
+        background =
+            "linear-gradient(135deg,#ef4444,#dc2626)";
+
+    } else if (type === "warning") {
+
+        background =
+            "linear-gradient(135deg,#f59e0b,#d97706)";
+
+    } else {
+
+        background =
+            "linear-gradient(135deg,#2563eb,#7c3aed)";
+    }
+
+
+    Toastify({
+
+        text:
+            message,
+
+        duration:
+            3500,
+
+        gravity:
+            "top",
+
+        position:
+            "right",
+
+        close:
+            true,
+
+        stopOnFocus:
+            true,
+
+        style: {
+
+            background,
+
+            borderRadius:
+                "16px",
+
+            padding:
+                "16px 22px",
+
+            fontWeight:
+                "600",
+
+            boxShadow:
+                "0 15px 35px rgba(0,0,0,.35)"
+        }
+
+    }).showToast();
+}
+
+
+
+
+
+/* =========================================
    AI MOTIF GENERATOR
 ========================================= */
 
@@ -60,45 +138,150 @@ generateAiBtn.addEventListener(
     "click",
     async () => {
 
+
+    if (
+        motifTextarea.value.trim()
+        === ""
+    ) {
+
+
+        showToast(
+            "Enter operation information before generating motif",
+            "warning"
+        );
+
+
+        return;
+    }
+
+
+
     try {
+
+
+        /* GET FORM VALUES */
+
 
         const voltage =
             voltageSelect.options[
                 voltageSelect.selectedIndex
             ].text;
 
+
+
+        const ouvrage =
+            document
+                .getElementById(
+                    "ouvrage_type_id"
+                )
+                .selectedOptions[0]
+                .text;
+
+
+
         const district =
-            document.getElementById(
-                "district_id"
-            ).options[
-                document.getElementById(
+            document
+                .getElementById(
                     "district_id"
-                ).selectedIndex
-            ].text;
+                )
+                .selectedOptions[0]
+                .text;
+
+
+
+        const messageType =
+            document
+                .getElementById(
+                    "message_type_id"
+                )
+                .selectedOptions[0]
+                .text;
+
+
+
+        const status =
+            document
+                .getElementById(
+                    "status_id"
+                )
+                .selectedOptions[0]
+                .text;
+
+
+
+        const chef =
+            document
+                .getElementById(
+                    "chef_conduite"
+                )
+                .value;
+
+
+
+
+        /* AI CONTEXT */
+
 
         const prompt = `
 
-Generate a professional SONALGAZ
-electrical transfer motif in French.
+Informations message SONALGAZ:
 
-Voltage:
+Type opération:
+${messageType}
+
+Ouvrage concerné:
+${ouvrage}
+
+Niveau de tension:
 ${voltage}
 
 District:
 ${district}
 
-Current user notes:
+Etat du message:
+${status}
+
+Chef de conduite:
+${chef}
+
+Information opérateur:
 ${motifTextarea.value}
+
+
+Créer uniquement le MOTIF officiel SONALGAZ.
+Utiliser toutes les informations disponibles.
+
+Si l'information opérateur contient une durée
+(ex: 1h, 2 heures, 30 minutes),
+la considérer comme durée de l'opération.
+
 `;
 
-        /* LOADING BUTTON */
 
-        generateAiBtn.disabled = true;
+
+
+        /* LOADING */
+
+
+        generateAiBtn.disabled =
+            true;
+
 
         generateAiBtn.innerHTML =
             "Generating...";
 
+
+        showToast(
+            "AI is preparing SONALGAZ motif...",
+            "info"
+        );
+
+
+
+
+
         /* REQUEST */
+
 
         const response =
             await fetch(
@@ -107,7 +290,9 @@ ${motifTextarea.value}
 
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
+
 
                     headers: {
 
@@ -115,123 +300,107 @@ ${motifTextarea.value}
                             "application/json"
                     },
 
-                    body: JSON.stringify({
 
-                        prompt
-                    })
+                    body:
+                        JSON.stringify({
+
+                            prompt
+                        })
                 }
             );
+
+
+
 
         const data =
             await response.json();
 
-        /* ERROR */
+
+
 
         if (!response.ok) {
+
 
             throw new Error(
                 data.error
             );
         }
 
-        /* INSERT TEXT */
+
+
+
+        /* INSERT RESULT */
+
 
         motifTextarea.value =
             data.motif;
 
-        /* SUCCESS TOAST */
 
-        Toastify({
 
-            text:
-                "AI motif generated successfully",
 
-            duration: 3500,
+        showToast(
 
-            gravity: "top",
+            "AI motif generated successfully",
 
-            position: "right",
+            "success"
+        );
 
-            stopOnFocus: true,
 
-            close: false,
 
-            style: {
-
-                background:
-                    "linear-gradient(to right, #22c55e, #16a34a)",
-
-                borderRadius: "14px",
-
-                padding: "16px 22px",
-
-                fontWeight: "600",
-
-                boxShadow:
-                    "0 12px 30px rgba(0,0,0,0.25)"
-            }
-
-        }).showToast();
 
     } catch (error) {
 
-        console.error(error);
+
+
+        console.error(
+            error
+        );
 
 
 
-/* ERROR TOAST */
+        let errorMessage =
+            error.message;
 
-Toastify({
 
-    text:
 
-        error.message.includes("429")
+        if (
+            errorMessage
+                .toLowerCase()
+                .includes(
+                    "quota"
+                )
+        ) {
 
-        ?
 
-        "AI quota reached. Please wait a few seconds."
+            errorMessage =
+                "AI quota reached, please try again later";
+        }
 
-        :
 
-        "AI generation failed",
 
-    duration: 5000,
 
-    gravity: "top",
+        showToast(
 
-    position: "right",
+            errorMessage,
 
-    stopOnFocus: true,
+            "error"
+        );
 
-    close: true,
-
-    style: {
-
-        background:
-            "linear-gradient(to right, #ef4444, #dc2626)",
-
-        borderRadius: "14px",
-
-        padding: "16px 22px",
-
-        fontWeight: "600",
-
-        boxShadow:
-            "0 12px 30px rgba(0,0,0,0.25)"
-    }
-
-}).showToast();
 
 
     } finally {
 
-        /* RESET BUTTON */
 
-        generateAiBtn.disabled = false;
+
+        generateAiBtn.disabled =
+            false;
+
+
 
         generateAiBtn.innerHTML =
-            "Generate AI Motif";
+            "Generate AI";
     }
+
 });
 
 
@@ -310,9 +479,12 @@ form.addEventListener("submit", async (e) => {
                 "status_id"
             ).value,
 
-        /* OUVRAGE */
+/* OUVRAGE */
 
-        ouvrage_type_id: 1,
+ouvrage_type_id:
+    document.getElementById(
+        "ouvrage_type_id"
+    ).value,
 
         /* MOTIF */
 
@@ -338,18 +510,34 @@ form.addEventListener("submit", async (e) => {
 
     try {
 
-        const response = await fetch(
-            "http://localhost:5000/messages",
-            {
-                method: "POST",
+const response = await fetch(
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+    "http://localhost:5000/messages",
 
-                body: JSON.stringify(data)
-            }
-        );
+    {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "application/json",
+
+
+            Authorization:
+                "Bearer " +
+                localStorage.getItem(
+                    "token"
+                )
+        },
+
+
+        body:
+            JSON.stringify(
+                data
+            )
+    }
+);
 
         const result = await response.json();
 

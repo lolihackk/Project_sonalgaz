@@ -1,3 +1,7 @@
+const verifyToken =
+    require(
+        "../middleware/authMiddleware"
+    );
 const express = require("express");
 
 const router = express.Router();
@@ -6,7 +10,10 @@ const pool = require("../config/db");
 
 /* GET ALL MESSAGES */
 
-router.get("/", async (req, res) => {
+router.get(
+    "/",
+    verifyToken,
+    async (req,res) => {
 
     try {
 
@@ -82,7 +89,10 @@ router.get("/", async (req, res) => {
 
 /* CREATE MESSAGE */
 
-router.post("/", async (req, res) => {
+router.post(
+    "/",
+    verifyToken,
+    async (req, res) => {
 
     try {
 
@@ -235,7 +245,10 @@ router.post("/", async (req, res) => {
 
 /* DELETE MESSAGE */
 
-router.delete("/:id", async (req, res) => {
+router.delete(
+    "/:id",
+    verifyToken,
+    async (req, res) => {
 console.log("DELETE ROUTE WORKING");
     try {
 
@@ -267,7 +280,10 @@ console.log("DELETE ROUTE WORKING");
 });
 /* UPDATE MESSAGE */
 
-router.put("/:id", async (req, res) => {
+router.put(
+    "/:id",
+    verifyToken,
+    async (req, res) => {
 
     try {
 

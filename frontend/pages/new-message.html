@@ -31,7 +31,9 @@
             </h2>
 
             <nav>
-
+<div id="userInfo"
+     class="user-info">
+</div>
                 <a href="../index.html">
                     Dashboard
                 </a>
@@ -47,6 +49,12 @@
                 <a href="bilan.html">
                     Bilan Mensuel
                 </a>
+                <a href="users.html"
+   id="adminLink">
+
+    Admin Users
+
+</a>
 <button id="logoutBtn"
         class="logout-btn">
 
@@ -265,7 +273,35 @@
         </select>
 
     </div>
+    <!-- OUVRAGE -->
 
+    <div class="input-box">
+
+        <label>
+            Ouvrage
+        </label>
+
+        <select id="ouvrage_type_id">
+
+            <option value="1">
+                Ligne
+            </option>
+
+            <option value="2">
+                Transformateur
+            </option>
+
+            <option value="3">
+                Poste
+            </option>
+
+            <option value="4">
+                Jeu de barres
+            </option>
+
+        </select>
+
+    </div>
     <!-- CHEF -->
 
     <div class="input-box">
@@ -452,11 +488,27 @@
 
     </div>
 
-    <script src="../js/messages.js"></script>
+<!-- TOASTIFY CSS -->
+
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+
+<!-- TOASTIFY JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+<!-- AUTH CHECK -->
+
+<script src="../js/auth-check.js"></script>
+
+<!-- USER INFO -->
+
+<script src="../js/user-info.js"></script>
+<!-- PAGE JS -->
+
+<script src="../js/messages.js"></script>
 </body>
 
 </html>

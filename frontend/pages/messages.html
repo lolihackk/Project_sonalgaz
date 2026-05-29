@@ -33,7 +33,9 @@
             </h2>
 
             <nav>
-
+<div id="userInfo"
+     class="user-info">
+</div>
                 <a href="../index.html">
                     Dashboard
                 </a>
@@ -49,6 +51,12 @@
                 <a href="bilan.html">
                     Bilan Mensuel
                 </a>
+                <a href="users.html"
+   id="adminLink">
+
+    Admin Users
+
+</a>
 <button id="logoutBtn"
         class="logout-btn">
 
@@ -133,10 +141,11 @@
 
                             <th>District</th>
 
-                            <th>Voltage</th>
+<th>Voltage</th>
 
-                            <th>Status</th>
+<th>Ouvrage</th>
 
+<th>Status</th>
                             <th>Motif</th>
 
                             <th>Chef</th>
@@ -309,13 +318,21 @@
 
 </div>
 
-    <!-- TOASTIFY -->
+<!-- TOASTIFY -->
 
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-    <!-- JS -->
 
-    <script src="../js/messages-list.js"></script>
+<!-- AUTH CHECK -->
+
+<script src="../js/auth-check.js"></script>
+
+<!-- USER INFO -->
+
+<script src="../js/user-info.js"></script>
+<!-- JS -->
+
+<script src="../js/messages-list.js"></script>
 
 </body>
 

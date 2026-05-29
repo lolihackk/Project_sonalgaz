@@ -3,23 +3,45 @@ require("dotenv").config();
 const pool =
     require("./src/config/db");
 
+
 async function seedMessages() {
 
     try {
 
-        for (let i = 1; i <= 30; i++) {
+
+        for (let i = 1; i <= 45; i++) {
+
 
             const districtId =
-                Math.floor(Math.random() * 8) + 1;
+                Math.floor(
+                    Math.random() * 8
+                ) + 1;
+
 
             const voltageId =
-                Math.floor(Math.random() * 5) + 1;
+                Math.floor(
+                    Math.random() * 5
+                ) + 1;
+
 
             const messageTypeId =
-                Math.floor(Math.random() * 3) + 1;
+                Math.floor(
+                    Math.random() * 3
+                ) + 1;
+
 
             const statusId =
-                Math.floor(Math.random() * 5) + 1;
+                Math.floor(
+                    Math.random() * 5
+                ) + 1;
+
+
+            const ouvrageId =
+                Math.floor(
+                    Math.random() * 4
+                ) + 1;
+
+
 
             await pool.query(
 
@@ -59,53 +81,88 @@ async function seedMessages() {
                 )
                 `,
 
+
                 [
 
                     i,
 
-                    Math.floor(
-                        Math.random() * 999
-                    ),
 
                     Math.floor(
                         Math.random() * 999
                     ),
 
+
                     Math.floor(
                         Math.random() * 999
                     ),
+
+
+                    Math.floor(
+                        Math.random() * 999
+                    ),
+
 
                     districtId,
 
+
                     voltageId,
+
 
                     messageTypeId,
 
+
                     statusId,
 
-                    1,
 
-                    `Maintenance ligne ${i}`,
+                    ouvrageId,
+
+
+                    [
+                        "Maintenance programmée avec adaptation du schéma d'exploitation du réseau électrique.",
+
+                        "Transfert d'exploitation nécessaire afin d'assurer la continuité de service.",
+
+                        "Indisponibilité temporaire d'un ouvrage pour travaux de maintenance préventive.",
+
+                        "Intervention technique réalisée conformément aux procédures de sécurité SONALGAZ.",
+
+                        "Modification du schéma réseau pour garantir la stabilité des ouvrages électriques."
+
+                    ][
+                        Math.floor(
+                            Math.random() * 5
+                        )
+                    ],
+
 
                     `Chef ${i}`,
+
 
                     `Generated test message ${i}`
                 ]
             );
         }
 
+
         console.log(
-            "Fake messages inserted!"
+            "45 fake messages inserted successfully!"
         );
+
 
         process.exit();
 
+
     } catch (error) {
 
-        console.error(error);
+
+        console.error(
+            error
+        );
+
 
         process.exit();
     }
 }
+
 
 seedMessages();

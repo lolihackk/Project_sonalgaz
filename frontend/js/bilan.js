@@ -539,42 +539,45 @@ async function exportExcel() {
 
         const detailData = [
 
-            [
+[
+    "Date",
 
-                "Date",
+    "Voltage",
 
-                "Voltage",
+    "Ouvrage",
 
-                "District",
+    "District",
 
-                "Type",
+    "Type",
 
-                "Status",
+    "Status",
 
-                "Chef Conduite",
+    "Chef Conduite",
 
-                "Motif"
-            ]
+    "Motif"
+]
         ];
 
         details.forEach(item => {
 
-            detailData.push([
+detailData.push([
 
-                item.created_date,
+    item.created_date,
 
-                item.voltage,
+    item.voltage,
 
-                item.district,
+    item.ouvrage,
 
-                item.message_type,
+    item.district,
 
-                item.status,
+    item.message_type,
 
-                item.chef_conduite,
+    item.status,
 
-                item.motif
-            ]);
+    item.chef_conduite,
+
+    item.motif
+]);
         });
 
         const detailSheet =

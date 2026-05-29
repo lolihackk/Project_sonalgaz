@@ -2,11 +2,23 @@ async function loadDashboard() {
 
     try {
 
-        const response =
-            await fetch(
-                "http://localhost:5000/messages"
-            );
+const response =
+    await fetch(
 
+        "http://localhost:5000/messages",
+
+        {
+
+            headers: {
+
+                Authorization:
+                    "Bearer " +
+                    localStorage.getItem(
+                        "token"
+                    )
+            }
+        }
+    );
         const messages =
             await response.json();
 
