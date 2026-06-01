@@ -116,7 +116,7 @@ async function loadMessages(
         const response =
     await fetch(
 
-        "http://localhost:5000/messages",
+        "https://sonalgaz-api.onrender.com/messages",
 
         {
 
@@ -346,7 +346,7 @@ confirmDeleteBtn.addEventListener(
 
 await fetch(
 
-    `http://localhost:5000/messages/${selectedDeleteId}`,
+    `https://sonalgaz-api.onrender.com/messages/${selectedDeleteId}`,
 
     {
 
@@ -418,7 +418,7 @@ async function openEditModal(id) {
 const response =
     await fetch(
 
-        "http://localhost:5000/messages",
+        "https://sonalgaz-api.onrender.com/messages",
 
         {
 
@@ -473,7 +473,7 @@ saveEditBtn.addEventListener(
 
         await fetch(
 
-            `http://localhost:5000/messages/${selectedEditId}`,
+            `https://sonalgaz-api.onrender.com/messages/${selectedEditId}`,
 
             {
                 method: "PUT",

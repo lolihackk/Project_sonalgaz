@@ -5,7 +5,7 @@ async function loadDashboard() {
 const response =
     await fetch(
 
-        "http://localhost:5000/messages",
+        "https://sonalgaz-api.onrender.com/messages",
 
         {
 

@@ -39,7 +39,7 @@ async function loadUsers() {
         const response =
             await fetch(
 
-                "http://localhost:5000/users",
+                "https://sonalgaz-api.onrender.com/users",
 
                 {
 
@@ -165,7 +165,7 @@ document
 
                 await fetch(
 
-                    "http://localhost:5000/users",
+                    "https://sonalgaz-api.onrender.com/users",
 
                     {
 
@@ -330,7 +330,7 @@ document
 
                 await fetch(
 
-                    `http://localhost:5000/users/${deleteUserId}`,
+                    `https://sonalgaz-api.onrender.com/users/${deleteUserId}`,
 
                     {
 
@@ -525,7 +525,7 @@ saveUserEdit.addEventListener(
 
         await fetch(
 
-            `http://localhost:5000/users/${editingUserId}`,
+            `https://sonalgaz-api.onrender.com/users/${editingUserId}`,
 
             {
 

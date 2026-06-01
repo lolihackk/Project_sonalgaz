@@ -286,7 +286,7 @@ la considérer comme durée de l'opération.
         const response =
             await fetch(
 
-                "http://localhost:5000/ai/generate-motif",
+                "https://sonalgaz-api.onrender.com/ai/generate-motif",
 
                 {
 
@@ -512,7 +512,7 @@ ouvrage_type_id:
 
 const response = await fetch(
 
-    "http://localhost:5000/messages",
+    "https://sonalgaz-api.onrender.com/messages",
 
     {
 

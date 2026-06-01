@@ -85,7 +85,7 @@ async function loadBilan() {
         const response =
             await fetch(
 
-                `http://localhost:5000/reports/monthly?month=${month}`
+                `https://sonalgaz-api.onrender.com/reports/monthly?month=${month}`
             );
 
         const data =
@@ -176,7 +176,7 @@ async function loadVoltageReport(month) {
         const response =
             await fetch(
 
-                `http://localhost:5000/reports/by-voltage?month=${month}`
+                `https://sonalgaz-api.onrender.com/reports/by-voltage?month=${month}`
             );
 
         const data =
@@ -233,7 +233,7 @@ async function loadPlannedReport(month) {
         const response =
             await fetch(
 
-                `http://localhost:5000/reports/planned?month=${month}`
+                `https://sonalgaz-api.onrender.com/reports/planned?month=${month}`
             );
 
         const data =
@@ -286,7 +286,7 @@ async function loadOuvrageReport(month) {
         const response =
             await fetch(
 
-                `http://localhost:5000/reports/by-ouvrage?month=${month}`
+                `https://sonalgaz-api.onrender.com/reports/by-ouvrage?month=${month}`
             );
 
         const data =
@@ -347,7 +347,7 @@ async function exportExcel() {
         const response =
             await fetch(
 
-                `http://localhost:5000/reports/full-details?month=${month}`
+                `https://sonalgaz-api.onrender.com/reports/full-details?month=${month}`
             );
 
         const details =
