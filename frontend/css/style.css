@@ -36,15 +36,15 @@ body {
 
 .sidebar {
 
-    width: 240px;
+    width: 280px;
 
-    min-width: 240px;
+    min-width: 280px;
 
     background: #0b132b;
 
     border-right: 1px solid #1e293b;
 
-    padding: 30px 20px;
+    padding: 35px 24px;
 
     position: sticky;
 
@@ -55,8 +55,9 @@ body {
     display: flex;
 
     flex-direction: column;
-}
 
+    overflow-y: auto;
+}
 .sidebar nav {
 
     display: flex;
@@ -67,14 +68,12 @@ body {
 }
 
 .logo {
-
     color: #3b82f6;
-
-    font-size: 34px;
-
-    font-weight: 800;
-
+    font-size: 48px;
+    font-weight: 900;
     margin-bottom: 45px;
+    white-space: nowrap;
+    line-height: 1;
 }
 
 .sidebar nav {
@@ -912,13 +911,7 @@ textarea {
     padding: 28px;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
 
-/* =========================================
-   RESPONSIVE
-========================================= */
 
 @media (max-width: 1400px) {
 
@@ -945,6 +938,11 @@ textarea {
         padding: 20px;
     }
 
+    .logo {
+        font-size: 42px;
+        white-space: nowrap;
+    }
+
     .main-content {
         padding: 25px;
     }
@@ -953,12 +951,16 @@ textarea {
         grid-template-columns: 1fr;
     }
 
+    .page-header,
     .bilan-header,
-    .form-header,
-    .page-header {
+    .form-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
+    }
+
+    .user-create-box {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -969,7 +971,7 @@ textarea {
     }
 
     .cards {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: 1fr;
     }
 
     .search-container {
@@ -993,8 +995,18 @@ textarea {
         -webkit-overflow-scrolling: touch;
     }
 
+    /* IMPORTANT */
     table {
-        min-width: 700px;
+        min-width: 900px;
+    }
+
+    .motif-cell {
+        width: 220px;
+        max-width: 220px;
+    }
+
+    .motif-preview {
+        max-width: 220px;
     }
 
     .form-actions {
@@ -1010,10 +1022,10 @@ textarea {
         width: 100%;
     }
 
+    .page-header h1,
     .bilan-header h1,
-    .form-header h1,
-    .page-header h1 {
-        font-size: 30px;
+    .form-header h1 {
+        font-size: 32px;
     }
 
     .card p {
@@ -1024,12 +1036,13 @@ textarea {
 @media (max-width: 480px) {
 
     .logo {
-        font-size: 26px;
+        font-size: 34px;
+        white-space: nowrap;
     }
 
+    .page-header h1,
     .bilan-header h1,
-    .form-header h1,
-    .page-header h1 {
+    .form-header h1 {
         font-size: 24px;
     }
 
@@ -1043,6 +1056,10 @@ textarea {
 
     .card {
         padding: 18px;
+    }
+
+    .sidebar {
+        padding: 15px;
     }
 }
 
@@ -1579,14 +1596,13 @@ textarea {
 /* =====================================
    MOTIF COLUMN
 ===================================== */
-
 .motif-cell {
 
     position: relative;
 
-    width: 350px;
+    width: 220px;
 
-    max-width: 350px;
+    max-width: 220px;
 }
 
 
@@ -1600,7 +1616,7 @@ textarea {
 
     text-overflow: ellipsis;
 
-    max-width: 350px;
+    max-width: 220px;
 
     cursor: pointer;
 }
@@ -1647,8 +1663,7 @@ textarea {
 
 /* SHOW */
 
-.motif-cell:hover
-.motif-tooltip {
+.motif-cell:hover .motif-tooltip {
 
     display: block;
 }
@@ -2166,67 +2181,6 @@ textarea {
         #22c55e;
 }
 
-
-
-
-
-
-
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-
-    .user-create-box {
-
-
-        grid-template-columns:
-            1fr;
-    }
-}
-
-/* =========================================
-   MOBILE MESSAGES PAGE
-========================================= */
-
-@media (max-width: 768px) {
-
-    .main-content{
-        padding:15px;
-    }
-
-    .table-container{
-        padding:15px;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
-    }
-
-    table{
-        min-width:1200px;
-    }
-
-    .motif-cell{
-        width:200px;
-        max-width:200px;
-    }
-
-    .motif-preview{
-        max-width:200px;
-    }
-
-    .search-container{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .search-container input,
-    .search-container select{
-        width:100%;
-    }
-}
-
-
 img,
 video,
 canvas,
@@ -2244,4 +2198,19 @@ textarea {
 
 * {
     word-wrap: break-word;
+}
+
+.page-header{
+    margin-bottom:40px;
+}
+
+.page-header h1{
+    font-size:56px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.page-header p{
+    color:#94a3b8;
+    font-size:18px;
 }
