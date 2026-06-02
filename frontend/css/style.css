@@ -69,19 +69,24 @@ body {
 
 .logo {
 
-    color: #3b82f6;
-
-    font-size: 26px;
+    font-size: 32;
 
     font-weight: 900;
 
-    line-height: 1.1;
+    letter-spacing: 1px;
+
+    color: #3b82f6;
 
     margin-bottom: 40px;
 
+    line-height: 1;
+
     white-space: nowrap;
 
-    overflow: hidden;
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 20px rgba(59,130,246,.35);
 }
 
 .sidebar nav {
