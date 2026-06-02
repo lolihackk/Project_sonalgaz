@@ -1,55 +1,27 @@
-const menuToggle =
-    document.getElementById(
-        "menuToggle"
-    );
+const menuBtn =
+    document.getElementById("mobileMenuBtn");
 
 const sidebar =
-    document.querySelector(
-        ".sidebar"
-    );
+    document.querySelector(".sidebar");
 
 const overlay =
-    document.createElement(
-        "div"
-    );
+    document.getElementById("sidebarOverlay");
 
-overlay.className =
-    "sidebar-overlay";
+if(menuBtn){
 
-document.body.appendChild(
-    overlay
-);
+    menuBtn.addEventListener("click", () => {
 
-if(
-    menuToggle &&
-    sidebar
-){
+        sidebar.classList.toggle("active");
 
-    menuToggle.addEventListener(
-        "click",
-        ()=>{
+        overlay.classList.toggle("active");
 
-            sidebar.classList.toggle(
-                "active"
-            );
+    });
 
-            overlay.classList.toggle(
-                "active"
-            );
-        }
-    );
+    overlay.addEventListener("click", () => {
 
-    overlay.addEventListener(
-        "click",
-        ()=>{
+        sidebar.classList.remove("active");
 
-            sidebar.classList.remove(
-                "active"
-            );
+        overlay.classList.remove("active");
 
-            overlay.classList.remove(
-                "active"
-            );
-        }
-    );
+    });
 }
