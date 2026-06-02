@@ -514,13 +514,18 @@ body {
     font-weight: 800;
 }
 
+.table-container {
+
+    padding: 35px;
+}
+
 table {
 
-    width: 100%;
+    width: 96%;
+
+    margin: 0 auto;
 
     border-collapse: collapse;
-
-    table-layout: auto;
 }
 
 thead {
