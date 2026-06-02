@@ -94,28 +94,33 @@ async function loadUsers() {
 
                     <td>
 
-<button
-    class="edit-btn"
-    onclick="openEditUser(
-        ${user.id},
-        '${user.username}',
-        '${user.role}'
-    )">
+    <div class="actions-cell">
 
-    <i class="fa-solid fa-pen"></i>
+        <button
+            class="edit-btn"
+            onclick="openEditUser(
+                ${user.id},
+                '${user.username}',
+                '${user.role}'
+            )">
 
-</button>
+            <i class="fa-solid fa-pen"></i>
+            Edit
 
+        </button>
 
-                        <button
-                            class="delete-btn"
-                            onclick="deleteUser(${user.id})">
+        <button
+            class="delete-btn"
+            onclick="deleteUser(${user.id})">
 
-                            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash"></i>
+            Delete
 
-                        </button>
+        </button>
 
-                    </td>
+    </div>
+
+</td>
 
                 </tr>
 

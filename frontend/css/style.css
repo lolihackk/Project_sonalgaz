@@ -1935,23 +1935,41 @@ textarea {
 
 /* USER CREATE PANEL */
 
-.user-create-box {
+/* =====================================
+   CREATE USER CARD PREMIUM
+===================================== */
 
+.user-create-box{
 
-    display: grid;
-
+    display:grid;
 
     grid-template-columns:
-        1fr 1fr 220px 180px;
+        1fr
+        1fr
+        220px
+        200px;
 
+    gap:20px;
 
-    gap: 18px;
+    align-items:center;
 
+    padding:24px;
 
-    align-items: center;
+    margin-top:20px;
 
+    background:
+        linear-gradient(
+            180deg,
+            rgba(23,32,51,.95),
+            rgba(18,27,46,.95)
+        );
 
-    margin-top: 15px;
+    border:1px solid #243041;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25);
 }
 
 
@@ -1960,42 +1978,38 @@ textarea {
 
 
 .user-create-box input,
-.user-create-box select {
+.user-create-box select{
 
+    height:56px;
 
-    width: 100%;
+    background:#0f172a;
 
+    border:1px solid #334155;
 
-    background:
-        #0f172a;
+    color:white;
 
+    padding:0 18px;
 
-    border:
-        1px solid #334155;
+    border-radius:14px;
 
+    font-size:15px;
 
-    color:
-        white;
+    transition:.25s;
+}
 
+.user-create-box input:hover,
+.user-create-box select:hover{
 
-    padding:
-        16px 18px;
+    border-color:#475569;
+}
 
+.user-create-box input:focus,
+.user-create-box select:focus{
 
-    border-radius:
-        16px;
+    border-color:#3b82f6;
 
-
-    outline:
-        none;
-
-
-    font-size:
-        15px;
-
-
-    transition:
-        .25s;
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.15);
 }
 
 
@@ -2091,20 +2105,21 @@ textarea {
 
 /* USERS TABLE ENHANCEMENT */
 
-#usersTable tr {
+#usersTable tr{
 
-
-    transition:
-        .25s;
+    transition:.25s;
 }
 
+#usersTable tr:hover{
 
+    background:rgba(37,99,235,.08);
 
-#usersTable tr:hover {
+    transform:translateX(4px);
+}
 
+#usersTable td{
 
-    background:
-        rgba(37,99,235,.10);
+    padding:18px 16px;
 }
 
 
@@ -2248,38 +2263,31 @@ td:last-child{
 }
 
 .actions-cell{
-
     display:flex;
-
-    flex-direction:row;
-
-    justify-content:center;
-
+    gap:10px;
     align-items:center;
-
-    gap:8px;
-
-    white-space:nowrap;
+    justify-content:center;
 }
 
 .edit-btn,
 .delete-btn{
-
-    min-width:70px;
-
-    height:38px;
-
-    padding:0 12px;
-
-    font-size:13px;
+    min-width:95px;
+    height:40px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
+
+    gap:8px;
+
+    flex-shrink:0;
 }
 
+#usersTable th:last-child,
+#usersTable td:last-child{
+    width:240px;
+    min-width:240px;
+}
 .page-header{
 
     display:flex;
@@ -2304,3 +2312,132 @@ td:last-child{
     flex-direction:column;
 }
 
+
+.actions-cell{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:10px !important;
+}
+
+.edit-btn,
+.delete-btn{
+    min-width:95px !important;
+    height:40px !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    gap:8px !important;
+}
+
+#usersTable th:last-child,
+#usersTable td:last-child{
+    width:240px !important;
+    min-width:240px !important;
+}
+
+/* =====================================
+   ADMIN PANEL MOBILE FIX
+===================================== */
+
+@media (max-width: 768px){
+
+    .table-container{
+        padding:20px;
+        border-radius:20px;
+    }
+
+    .user-create-box{
+
+        display:flex;
+        flex-direction:column;
+
+        gap:15px;
+
+        padding:18px;
+    }
+
+    .user-create-box input,
+    .user-create-box select,
+    .user-create-box .password-wrapper{
+
+        width:100%;
+    }
+
+    .user-create-box .save-btn{
+
+        width:100%;
+        height:52px;
+    }
+
+    .page-header{
+
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .page-header h1{
+
+        font-size:34px;
+        line-height:1.1;
+    }
+
+    .bilan-badge{
+
+        width:100%;
+        text-align:center;
+    }
+
+    #usersTable th:last-child,
+    #usersTable td:last-child{
+
+        min-width:220px;
+    }
+
+    .actions-cell{
+
+        justify-content:flex-start;
+    }
+
+    .edit-btn,
+    .delete-btn{
+
+        min-width:90px;
+        height:42px;
+    }
+
+    .modal-box{
+
+        width:95%;
+        max-width:95%;
+
+        padding:20px;
+    }
+
+    .modal-actions{
+
+        flex-direction:column;
+    }
+
+    .modal-actions button{
+
+        width:100%;
+    }
+}
+
+@media (max-width:768px){
+
+    #usersTable{
+        min-width:auto;
+    }
+
+    .table-container table{
+        min-width:unset;
+    }
+
+}
