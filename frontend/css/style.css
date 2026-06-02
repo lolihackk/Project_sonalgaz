@@ -71,13 +71,17 @@ body {
 
     color: #3b82f6;
 
-    font-size: clamp(28px, 3vw, 42px);
+    font-size: 26px;
 
     font-weight: 900;
 
-    line-height: 1;
+    line-height: 1.1;
 
-    margin-bottom: 45px;
+    margin-bottom: 40px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
 }
 
 .sidebar nav {
