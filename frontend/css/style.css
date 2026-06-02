@@ -68,12 +68,16 @@ body {
 }
 
 .logo {
+
     color: #3b82f6;
-    font-size: 48px;
+
+    font-size: clamp(28px, 3vw, 42px);
+
     font-weight: 900;
-    margin-bottom: 45px;
-    white-space: nowrap;
+
     line-height: 1;
+
+    margin-bottom: 45px;
 }
 
 .sidebar nav {
