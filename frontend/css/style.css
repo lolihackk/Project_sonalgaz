@@ -475,7 +475,8 @@ body {
 
     border-radius: 28px;
 
-    padding: 45px;
+    padding: 25px;   /* was 45px */
+
     width: 100%;
 
     margin-bottom: 40px;
@@ -513,7 +514,7 @@ thead {
 
 thead th {
 
-    padding: 16px;
+    padding: 12px;
 
     text-align: left;
 
@@ -524,7 +525,7 @@ thead th {
 
 tbody td {
 
-    padding: 24px 18px;
+    padding: 18px 12px;
 
     border-bottom: 1px solid #243041;
 
