@@ -115,7 +115,7 @@ body {
 
     flex: 1;
 
-    padding: 35px;
+    padding: 45px 50px;
 }
 
 /* =========================================
@@ -365,13 +365,13 @@ body {
 
     display: flex;
 
-    gap: 12px;
+    gap: 18px;
 
     align-items: center;
 
     flex-wrap: wrap;
 
-    margin-bottom: 28px;
+    margin-bottom: 40px;
 }
 
 .search-container input,
@@ -475,7 +475,8 @@ body {
 
     border-radius: 28px;
 
-    padding: 34px;
+    padding: 45px;
+    width: 100%;
 
     margin-bottom: 40px;
 
@@ -502,7 +503,7 @@ table {
 
     border-collapse: collapse;
 
-    min-width: 800px;
+    table-layout: auto;
 }
 
 thead {
@@ -523,11 +524,13 @@ thead th {
 
 tbody td {
 
-    padding: 16px;
+    padding: 24px 18px;
 
     border-bottom: 1px solid #243041;
 
     color: #f1f5f9;
+
+    vertical-align: middle;
 }
 
 tbody tr {
@@ -535,12 +538,17 @@ tbody tr {
     transition: 0.2s;
 }
 
+tbody tr:nth-child(even){
+
+    background:
+        rgba(255,255,255,.02);
+}
+
 tbody tr:hover {
 
     background:
-        rgba(59,130,246,0.08);
+        rgba(59,130,246,.08);
 }
-
 /* =========================================
    BADGES
 ========================================= */
@@ -1600,9 +1608,9 @@ textarea {
 
     position: relative;
 
-    width: 220px;
+    width: 160px;
 
-    max-width: 220px;
+    max-width: 160px;
 }
 
 
@@ -1616,7 +1624,7 @@ textarea {
 
     text-overflow: ellipsis;
 
-    max-width: 220px;
+    max-width: 160px;
 
     cursor: pointer;
 }
@@ -2214,3 +2222,68 @@ textarea {
     color:#94a3b8;
     font-size:18px;
 }
+
+/* ACTIONS COLUMN */
+
+th:last-child,
+td:last-child{
+    width: 160px;
+}
+
+.actions-cell{
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    white-space:nowrap;
+}
+
+.edit-btn,
+.delete-btn{
+
+    min-width:70px;
+
+    height:38px;
+
+    padding:0 12px;
+
+    font-size:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:25px;
+
+    margin-bottom:45px;
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid #1e293b;
+}
+
+.page-header-left{
+
+    display:flex;
+
+    flex-direction:column;
+}
+

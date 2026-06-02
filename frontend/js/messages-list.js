@@ -265,25 +265,25 @@ ${message.created_time
 
     </td>
 
-    <td>
+<td class="actions-cell">
 
-        <button
-            class="edit-btn"
-            onclick="openEditModal(${message.id})">
+    <button
+        class="edit-btn"
+        onclick="openEditModal(${message.id})">
 
-            Edit
+        Edit
 
-        </button>
+    </button>
 
-        <button
-            class="delete-btn"
-            onclick="deleteMessage(${message.id})">
+    <button
+        class="delete-btn"
+        onclick="deleteMessage(${message.id})">
 
-            Delete
+        Delete
 
-        </button>
+    </button>
 
-    </td>
+</td>
 
 </tr>
 `;
