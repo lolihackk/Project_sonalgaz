@@ -268,18 +268,18 @@ ${message.created_time
 <td class="actions-cell">
 
     <button
-        class="edit-btn"
+        class="action-edit-btn"
         onclick="openEditModal(${message.id})">
 
-        Edit
+        <i class="fa-solid fa-pen"></i>
 
     </button>
 
     <button
-        class="delete-btn"
+        class="action-delete-btn"
         onclick="deleteMessage(${message.id})">
 
-        Delete
+        <i class="fa-solid fa-trash"></i>
 
     </button>
 

@@ -2442,3 +2442,56 @@ td:last-child{
 
 }
 
+/* MESSAGE ACTION BUTTONS */
+
+.action-edit-btn,
+.action-delete-btn{
+
+    width:44px;
+
+    height:44px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:15px;
+
+    transition:.25s;
+}
+
+.action-edit-btn{
+
+    background:
+        rgba(37,99,235,.15);
+
+    color:#60a5fa;
+
+    border:
+        1px solid rgba(37,99,235,.25);
+}
+
+.action-delete-btn{
+
+    background:
+        rgba(239,68,68,.15);
+
+    color:#f87171;
+
+    border:
+        1px solid rgba(239,68,68,.25);
+}
+
+.action-edit-btn:hover,
+.action-delete-btn:hover{
+
+    transform:translateY(-2px);
+}
